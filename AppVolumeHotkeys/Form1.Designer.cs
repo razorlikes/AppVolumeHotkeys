@@ -1,6 +1,6 @@
 ﻿namespace AppVolumeHotkeys
 {
-    partial class Form1
+    partial class MainWindow
     {
         /// <summary>
         /// Erforderliche Designervariable.
@@ -28,10 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.label_Description1 = new System.Windows.Forms.Label();
             this.button_SetName = new System.Windows.Forms.Button();
             this.groupBox_Settings = new System.Windows.Forms.GroupBox();
+            this.CueTextBox_AppName = new AppVolumeHotkeys.CueTextBox();
             this.numericUpDown_VolumeSteps = new System.Windows.Forms.NumericUpDown();
             this.label_Description3 = new System.Windows.Forms.Label();
             this.label_ProgramStatus = new System.Windows.Forms.Label();
@@ -40,7 +41,6 @@
             this.label_Description4 = new System.Windows.Forms.Label();
             this.label_AppVolume = new System.Windows.Forms.Label();
             this.label_AppMute = new System.Windows.Forms.Label();
-            this.CueTextBox_AppName = new AppVolumeHotkeys.CueTextBox();
             this.groupBox_Settings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_VolumeSteps)).BeginInit();
             this.SuspendLayout();
@@ -78,6 +78,14 @@
             this.groupBox_Settings.TabIndex = 2;
             this.groupBox_Settings.TabStop = false;
             this.groupBox_Settings.Text = "Settings";
+            // 
+            // CueTextBox_AppName
+            // 
+            this.CueTextBox_AppName.Cue = "Search keywords";
+            this.CueTextBox_AppName.Location = new System.Drawing.Point(6, 19);
+            this.CueTextBox_AppName.Name = "CueTextBox_AppName";
+            this.CueTextBox_AppName.Size = new System.Drawing.Size(121, 20);
+            this.CueTextBox_AppName.TabIndex = 7;
             // 
             // numericUpDown_VolumeSteps
             // 
@@ -156,15 +164,7 @@
             this.label_AppMute.TabIndex = 7;
             this.label_AppMute.Text = "No";
             // 
-            // CueTextBox_AppName
-            // 
-            this.CueTextBox_AppName.Cue = "Search keywords";
-            this.CueTextBox_AppName.Location = new System.Drawing.Point(6, 19);
-            this.CueTextBox_AppName.Name = "CueTextBox_AppName";
-            this.CueTextBox_AppName.Size = new System.Drawing.Size(121, 20);
-            this.CueTextBox_AppName.TabIndex = 7;
-            // 
-            // Form1
+            // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -181,7 +181,7 @@
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form1";
+            this.Name = "MainWindow";
             this.Text = "App Volume Hotkeys";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.groupBox_Settings.ResumeLayout(false);

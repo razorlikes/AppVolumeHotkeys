@@ -48,7 +48,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Volume Controls Volume up.ico</ApplicationIcon>
+    <ApplicationIcon>AVH.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -103,7 +103,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AVH.ico" />
-    <Content Include="Volume Controls Volume up.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">

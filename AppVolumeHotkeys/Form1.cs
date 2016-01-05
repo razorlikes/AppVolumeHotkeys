@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace AppVolumeHotkeys
 {
-    public partial class Form1 : Form
+    public partial class MainWindow : Form
     {
         string AppName;
         int PID, VolumeSteps;
@@ -26,7 +26,7 @@ namespace AppVolumeHotkeys
 
         const int WM_HOTKEY = 0x0312;
 
-        public Form1()
+        public MainWindow()
         {
             InitializeComponent();
 
@@ -44,7 +44,9 @@ namespace AppVolumeHotkeys
                 if (p.MainWindowTitle.ToLower() == AppName.ToLower() | p.MainWindowTitle.ToLower().Contains(AppName.ToLower()))
                 {
                     textBox1.Text = textBox1.Text + Environment.NewLine + p.MainWindowTitle + " PID = " + p.Id;
-                    label_ProgramStatus.Text = "Application '" + p.MainWindowTitle.Substring(0, 49) + "' found and set.";
+                    if (p.MainWindowTitle.Length > 49)
+                        label_ProgramStatus.Text = "Application '" + p.MainWindowTitle.Substring(0, 49) + "' found and set.";
+                    else label_ProgramStatus.Text = "Application '" + p.MainWindowTitle + "' found and set.";
                     PID = p.Id;
                     WriteVolumeLabel();
                     WriteMuteLabel();
@@ -78,7 +80,9 @@ namespace AppVolumeHotkeys
         {
             AppVolume = VolumeMixer.GetApplicationVolume(PID);
             if (AppVolume == 999)
-                MessageBox.Show("Error! This Application has no controllable volume." + Environment.NewLine + "Please select another application or start an audio stream on your selected one.");
+                MessageBox.Show("Error! This Application has no controllable volume." + Environment.NewLine + 
+                                "Please select another application or start an audio stream on your selected one.",
+                                "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else label_AppVolume.Text = AppVolume.ToString();
         }
 
