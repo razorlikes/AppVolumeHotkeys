@@ -39,7 +39,6 @@
             this.label_Description2 = new System.Windows.Forms.Label();
             this.label_Description4 = new System.Windows.Forms.Label();
             this.label_AppVolume = new System.Windows.Forms.Label();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.label_AppMute = new System.Windows.Forms.Label();
             this.CueTextBox_AppName = new AppVolumeHotkeys.CueTextBox();
             this.groupBox_Settings.SuspendLayout();
@@ -206,7 +205,6 @@
         private CueTextBox CueTextBox_AppName;
         private System.Windows.Forms.Label label_Description4;
         private System.Windows.Forms.Label label_AppVolume;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Label label_AppMute;
     }
 }
