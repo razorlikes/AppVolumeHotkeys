@@ -44,7 +44,7 @@ namespace AppVolumeHotkeys
                 if (p.MainWindowTitle.ToLower() == AppName.ToLower() | p.MainWindowTitle.ToLower().Contains(AppName.ToLower()))
                 {
                     textBox1.Text = textBox1.Text + Environment.NewLine + p.MainWindowTitle + " PID = " + p.Id;
-                    label_ProgramStatus.Text = "Application '" + p.MainWindowTitle + "' found and set.";
+                    label_ProgramStatus.Text = "Application '" + p.MainWindowTitle.Substring(0, 49) + "' found and set.";
                     PID = p.Id;
                     WriteVolumeLabel();
                     WriteMuteLabel();
@@ -77,7 +77,9 @@ namespace AppVolumeHotkeys
         public void WriteVolumeLabel()
         {
             AppVolume = VolumeMixer.GetApplicationVolume(PID);
-            label_AppVolume.Text = AppVolume.ToString();
+            if (AppVolume == 999)
+                MessageBox.Show("Error! This Application has no controllable volume." + Environment.NewLine + "Please select another application or start an audio stream on your selected one.");
+            else label_AppVolume.Text = AppVolume.ToString();
         }
 
         public void WriteMuteLabel()
@@ -107,7 +109,7 @@ namespace AppVolumeHotkeys
             {
                 ISimpleAudioVolume volume = GetVolumeObject(pid);
                 if (volume == null)
-                    return 0;
+                    return 999;
 
                 float level;
                 volume.GetMasterVolume(out level);
