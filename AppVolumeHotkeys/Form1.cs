@@ -14,6 +14,7 @@ namespace AppVolumeHotkeys
 {
     public partial class MainWindow : Form
     {
+        Keys VolUpHotkey, VolDownHotkey, VolUpModifier, VolDownModifier, MuteHotkey, MuteModifier;
         string AppName;
         int PID, VolumeSteps;
         int AppVolume;
@@ -30,8 +31,36 @@ namespace AppVolumeHotkeys
         {
             InitializeComponent();
 
-            RegisterHotKey(this.Handle, 1, 0, (int)Keys.PageUp);
-            RegisterHotKey(this.Handle, 2, 0, (int)Keys.PageDown);
+            VolUpHotkey = Properties.Settings.Default.VolUpHotkey;
+            VolUpModifier = Properties.Settings.Default.VolUpModifier;
+            VolDownHotkey = Properties.Settings.Default.VolDownHotkey;
+            VolDownModifier = Properties.Settings.Default.VolDownModifier;
+            MuteHotkey = Properties.Settings.Default.MuteHotkey;
+            MuteModifier = Properties.Settings.Default.MuteModifier;
+
+            RegisterHotKey(this.Handle, 1, (int)VolUpModifier, (int)VolUpHotkey);
+            RegisterHotKey(this.Handle, 2, (int)VolDownModifier, (int)VolDownHotkey);
+            RegisterHotKey(this.Handle, 3, (int)MuteModifier, (int)MuteHotkey);
+
+            var converter = new KeysConverter();
+
+            if (VolUpModifier != Keys.None)
+                textBox_VolUpHotkey.Text = converter.ConvertToString(VolUpModifier + "+" + VolUpHotkey);
+
+            else if (VolUpModifier == Keys.None)
+                textBox_VolUpHotkey.Text = converter.ConvertToString(VolUpHotkey);
+                
+            if (VolDownModifier != Keys.None)
+                textBox_VolDownHotkey.Text = converter.ConvertToString(VolDownModifier + "+" + VolDownHotkey);
+                
+            else if (VolDownModifier == Keys.None)
+                textBox_VolDownHotkey.Text = converter.ConvertToString(VolDownHotkey);
+
+            if (MuteModifier != Keys.None)
+                textBox_MuteHotkey.Text = converter.ConvertToString(MuteModifier + "+" + MuteHotkey);
+
+            else if (MuteModifier == Keys.None)
+                textBox_MuteHotkey.Text = converter.ConvertToString(MuteHotkey);
 
             VolumeSteps = decimal.ToInt32(numericUpDown_VolumeSteps.Value);
         }
@@ -44,8 +73,8 @@ namespace AppVolumeHotkeys
                 if (p.MainWindowTitle.ToLower() == AppName.ToLower() | p.MainWindowTitle.ToLower().Contains(AppName.ToLower()))
                 {
                     textBox1.Text = textBox1.Text + Environment.NewLine + p.MainWindowTitle + " PID = " + p.Id;
-                    if (p.MainWindowTitle.Length > 49)
-                        label_ProgramStatus.Text = "Application '" + p.MainWindowTitle.Substring(0, 49) + "' found and set.";
+                    if (p.MainWindowTitle.Length > 56)
+                        label_ProgramStatus.Text = "Application '" + p.MainWindowTitle.Substring(0, 55) + "' found and set.";
                     else label_ProgramStatus.Text = "Application '" + p.MainWindowTitle + "' found and set.";
                     PID = p.Id;
                     WriteVolumeLabel();
@@ -61,6 +90,8 @@ namespace AppVolumeHotkeys
                 VolumeUp();
             if (m.Msg == WM_HOTKEY && (int)m.WParam == 2)
                 VolumeDown();
+            if (m.Msg == WM_HOTKEY && (int)m.WParam == 3)
+                ToggleMute();
             base.WndProc(ref m);
         }
 
@@ -76,11 +107,20 @@ namespace AppVolumeHotkeys
             WriteVolumeLabel();
         }
 
+        public void ToggleMute()
+        {
+
+            if (AppMute == false)
+                VolumeMixer.SetApplicationMute(PID, true);
+            else VolumeMixer.SetApplicationMute(PID, false);
+            WriteMuteLabel();
+        }
+
         public void WriteVolumeLabel()
         {
             AppVolume = VolumeMixer.GetApplicationVolume(PID);
             if (AppVolume == 999)
-                MessageBox.Show("Error! This Application has no controllable volume." + Environment.NewLine + 
+                MessageBox.Show("This Application has no controllable volume." + Environment.NewLine + 
                                 "Please select another application or start an audio stream on your selected one.",
                                 "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else label_AppVolume.Text = AppVolume.ToString();
@@ -100,7 +140,91 @@ namespace AppVolumeHotkeys
             textBox1.Text = textBox1.Text + Environment.NewLine + VolumeSteps.ToString();
         }
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        private void textBox_VolUpHotkey_KeyDown(object sender, KeyEventArgs e)
+        {
+            Keys modifierKey = e.Modifiers;
+            Keys pressedKey = e.KeyData ^ modifierKey;
+
+            var converter = new KeysConverter();
+            textBox_VolUpHotkey.Text = converter.ConvertToString(e.KeyData);
+
+            VolUpModifier = modifierKey;
+            VolUpHotkey = pressedKey;
+
+            UnregisterHotKey(this.Handle, 1);
+            RegisterHotKey(this.Handle, 1, (int)VolUpModifier, (int)VolUpHotkey);
+        }
+
+        private void textBox_VolDownHotkey_KeyDown(object sender, KeyEventArgs e)
+        {
+            Keys modifierKey = e.Modifiers;
+            Keys pressedKey = e.KeyData ^ modifierKey;
+
+            var converter = new KeysConverter();
+            textBox_VolDownHotkey.Text = converter.ConvertToString(e.KeyData);
+
+            VolDownModifier = modifierKey;
+            VolDownHotkey = pressedKey;
+
+            UnregisterHotKey(this.Handle, 2);
+            RegisterHotKey(this.Handle, 2, (int)VolDownModifier, (int)VolDownHotkey);
+        }
+
+        private void textBox_MuteHotkey_KeyDown(object sender, KeyEventArgs e)
+        {
+            Keys modifierKey = e.Modifiers;
+            Keys pressedKey = e.KeyData ^ modifierKey;
+
+            var converter = new KeysConverter();
+            textBox_MuteHotkey.Text = converter.ConvertToString(e.KeyData);
+
+            MuteModifier = modifierKey;
+            MuteHotkey = pressedKey;
+
+            UnregisterHotKey(this.Handle, 3);
+            RegisterHotKey(this.Handle, 3, (int)MuteModifier, (int)MuteHotkey);
+        }
+
+        private void button_SaveHotkeys_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.VolUpHotkey = VolUpHotkey;
+            Properties.Settings.Default.VolUpModifier = VolUpModifier;
+            Properties.Settings.Default.VolDownHotkey = VolDownHotkey;
+            Properties.Settings.Default.VolDownModifier = VolDownModifier;
+            Properties.Settings.Default.MuteHotkey = MuteHotkey;
+            Properties.Settings.Default.MuteModifier = MuteModifier;
+            Properties.Settings.Default.Save();
+
+            var converter = new KeysConverter();
+            textBox_VolUpHotkey.Text = converter.ConvertToString(Properties.Settings.Default.VolUpHotkey);
+            textBox_VolDownHotkey.Text = converter.ConvertToString(Properties.Settings.Default.VolDownHotkey);
+            textBox_MuteHotkey.Text = converter.ConvertToString(Properties.Settings.Default.MuteHotkey);
+        }
+
+        private void button_ResetHotkeys_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.VolUpHotkey = Keys.None;
+            Properties.Settings.Default.VolUpModifier = Keys.None;
+            Properties.Settings.Default.VolDownHotkey = Keys.None;
+            Properties.Settings.Default.VolDownModifier = Keys.None;
+            Properties.Settings.Default.MuteHotkey = Keys.None;
+            Properties.Settings.Default.MuteModifier = Keys.None;
+            Properties.Settings.Default.Save();
+
+            var converter = new KeysConverter();
+            textBox_VolUpHotkey.Text = converter.ConvertToString(Properties.Settings.Default.VolUpHotkey);
+            textBox_VolDownHotkey.Text = converter.ConvertToString(Properties.Settings.Default.VolDownHotkey);
+            textBox_MuteHotkey.Text = converter.ConvertToString(Properties.Settings.Default.MuteHotkey);
+
+            VolUpHotkey = Properties.Settings.Default.VolUpHotkey;
+            VolUpModifier = Properties.Settings.Default.VolUpModifier;
+            VolDownHotkey = Properties.Settings.Default.VolDownHotkey;
+            VolDownModifier = Properties.Settings.Default.VolDownModifier;
+            MuteHotkey = Properties.Settings.Default.MuteHotkey;
+            MuteModifier = Properties.Settings.Default.MuteModifier;
+        }
+
+        private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             UnregisterHotKey(this.Handle, 1);
             UnregisterHotKey(this.Handle, 2);
@@ -175,8 +299,7 @@ namespace AppVolumeHotkeys
                 int count;
                 sessionEnumerator.GetCount(out count);
 
-                // search for an audio session with the required name
-                // NOTE: we could also use the process id instead of the app name (with IAudioSessionControl2)
+                // search for an audio session with the required id
                 ISimpleAudioVolume volumeControl = null;
                 for (int i = 0; i < count; i++)
                 {
@@ -280,7 +403,6 @@ namespace AppVolumeHotkeys
             [PreserveSig]
             int GetMute(out bool pbMute);
         }
-
 
 
         [Guid("bfb7ff88-7239-4fc9-8fa2-07c950be9c6d"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]

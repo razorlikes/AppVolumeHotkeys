@@ -1,4 +1,3 @@
-C:\Users\jniet\OneDrive\Visual Studio 2015\Projects\AppVolumeHotkeys\AppVolumeHotkeys\bin\Release\AppVolumeHotkeys.exe.config
 C:\Users\jniet\OneDrive\Visual Studio 2015\Projects\AppVolumeHotkeys\AppVolumeHotkeys\bin\Release\AppVolumeHotkeys.exe
 C:\Users\jniet\OneDrive\Visual Studio 2015\Projects\AppVolumeHotkeys\AppVolumeHotkeys\bin\Release\AppVolumeHotkeys.pdb
 C:\Users\jniet\OneDrive\Visual Studio 2015\Projects\AppVolumeHotkeys\AppVolumeHotkeys\obj\Release\AppVolumeHotkeys.Properties.Resources.resources
