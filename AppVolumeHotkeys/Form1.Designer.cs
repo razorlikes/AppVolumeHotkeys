@@ -40,6 +40,7 @@
             this.label_Description5 = new System.Windows.Forms.Label();
             this.textBox_VolDownHotkey = new System.Windows.Forms.TextBox();
             this.textBox_VolUpHotkey = new System.Windows.Forms.TextBox();
+            this.CueTextBox_AppName = new AppVolumeHotkeys.CueTextBox();
             this.numericUpDown_VolumeSteps = new System.Windows.Forms.NumericUpDown();
             this.label_Description3 = new System.Windows.Forms.Label();
             this.label_ProgramStatus = new System.Windows.Forms.Label();
@@ -48,7 +49,6 @@
             this.label_Description4 = new System.Windows.Forms.Label();
             this.label_AppVolume = new System.Windows.Forms.Label();
             this.label_AppMute = new System.Windows.Forms.Label();
-            this.CueTextBox_AppName = new AppVolumeHotkeys.CueTextBox();
             this.groupBox_Settings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_VolumeSteps)).BeginInit();
             this.SuspendLayout();
@@ -171,6 +171,14 @@
             this.textBox_VolUpHotkey.TabIndex = 8;
             this.textBox_VolUpHotkey.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_VolUpHotkey_KeyDown);
             // 
+            // CueTextBox_AppName
+            // 
+            this.CueTextBox_AppName.Cue = "Search keywords";
+            this.CueTextBox_AppName.Location = new System.Drawing.Point(6, 19);
+            this.CueTextBox_AppName.Name = "CueTextBox_AppName";
+            this.CueTextBox_AppName.Size = new System.Drawing.Size(121, 20);
+            this.CueTextBox_AppName.TabIndex = 7;
+            // 
             // numericUpDown_VolumeSteps
             // 
             this.numericUpDown_VolumeSteps.Location = new System.Drawing.Point(6, 74);
@@ -184,6 +192,7 @@
             0,
             0});
             this.numericUpDown_VolumeSteps.ValueChanged += new System.EventHandler(this.numericUpDown_VolumeSteps_ValueChanged);
+            this.numericUpDown_VolumeSteps.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.numericUpDown_VolumeSteps_KeyPress);
             // 
             // label_Description3
             // 
@@ -247,14 +256,6 @@
             this.label_AppMute.Size = new System.Drawing.Size(21, 13);
             this.label_AppMute.TabIndex = 7;
             this.label_AppMute.Text = "No";
-            // 
-            // CueTextBox_AppName
-            // 
-            this.CueTextBox_AppName.Cue = "Search keywords";
-            this.CueTextBox_AppName.Location = new System.Drawing.Point(6, 19);
-            this.CueTextBox_AppName.Name = "CueTextBox_AppName";
-            this.CueTextBox_AppName.Size = new System.Drawing.Size(121, 20);
-            this.CueTextBox_AppName.TabIndex = 7;
             // 
             // MainWindow
             // 

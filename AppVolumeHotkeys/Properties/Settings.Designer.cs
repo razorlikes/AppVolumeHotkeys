@@ -94,5 +94,29 @@ namespace AppVolumeHotkeys.Properties {
                 this["MuteModifier"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastName {
+            get {
+                return ((string)(this["LastName"]));
+            }
+            set {
+                this["LastName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int LastVolStep {
+            get {
+                return ((int)(this["LastVolStep"]));
+            }
+            set {
+                this["LastVolStep"] = value;
+            }
+        }
     }
 }

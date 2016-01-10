@@ -15,7 +15,7 @@ namespace AppVolumeHotkeys
     public partial class MainWindow : Form
     {
         Keys VolUpHotkey, VolDownHotkey, VolUpModifier, VolDownModifier, MuteHotkey, MuteModifier;
-        string AppName;
+        string AppName, LastName;
         int PID, VolumeSteps;
         int AppVolume;
         bool AppMute;
@@ -37,6 +37,14 @@ namespace AppVolumeHotkeys
             VolDownModifier = Properties.Settings.Default.VolDownModifier;
             MuteHotkey = Properties.Settings.Default.MuteHotkey;
             MuteModifier = Properties.Settings.Default.MuteModifier;
+            LastName = Properties.Settings.Default.LastName;
+            VolumeSteps = Properties.Settings.Default.LastVolStep;
+
+            if (LastName != String.Empty)
+                CueTextBox_AppName.Text = LastName;
+
+            if (VolumeSteps != 0)
+                numericUpDown_VolumeSteps.Value = VolumeSteps;
 
             RegisterHotKey(this.Handle, 1, (int)VolUpModifier, (int)VolUpHotkey);
             RegisterHotKey(this.Handle, 2, (int)VolDownModifier, (int)VolDownHotkey);
@@ -140,6 +148,11 @@ namespace AppVolumeHotkeys
             textBox1.Text = textBox1.Text + Environment.NewLine + VolumeSteps.ToString();
         }
 
+        private void numericUpDown_VolumeSteps_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            VolumeSteps = decimal.ToInt32(numericUpDown_VolumeSteps.Value);
+        }
+
         private void textBox_VolUpHotkey_KeyDown(object sender, KeyEventArgs e)
         {
             Keys modifierKey = e.Modifiers;
@@ -226,6 +239,10 @@ namespace AppVolumeHotkeys
 
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
+            Properties.Settings.Default.LastName = CueTextBox_AppName.Text;
+            Properties.Settings.Default.LastVolStep = decimal.ToInt32(numericUpDown_VolumeSteps.Value);
+            Properties.Settings.Default.Save();
+
             UnregisterHotKey(this.Handle, 1);
             UnregisterHotKey(this.Handle, 2);
         }
@@ -337,6 +354,7 @@ namespace AppVolumeHotkeys
             eAll,
             EDataFlow_enum_count
         }
+
 
         internal enum ERole
         {
