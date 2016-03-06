@@ -1,11 +1,9 @@
-# AppVolumeHotkeys
-
-This is an application to control the volume off an application in your volume mixer.
-You just enter some keywords of the windows title you want to control into the textbox.
-If the window isn't found try some more words or try to enter a more specific word in there.
-Then you can also set the percent of volume per step. This is preset to 10.
-
-
-If everything is set you can just leave the window opened in the background and control your
-volume by pressing PageUp and PageDown for volume up and down. The Hotkeys can't be changed right now
-but hopefully will be changeable in the future.
+##What is "AppVolumeHotkeys"?
+AppVolumeHotkeys is an application that lets you control the volume of an application which is listed in Windows' volume mixer.
+Its written in C# and is *a learning project* at the moment. To get access to the `ISimpleAudioVolume`, `IAudioSessionEnumerator` and `IAudioSessionControl2`, `IAudioSessionManager2`, `IMMDevice` and `IMMDeviceEnumerator` APIs I used an edited version of 
+[Simon Mouriers answer](http://stackoverflow.com/a/14322736) on stackoverflow.com.
+[Download latest .exe](https://github.com/razorlikes/AppVolumeHotkeys/releases/download/v1.0/AppVolumeHotkeys.exe)
+##How to set it up
+You will just need to enter a keyword of the window title of the application you want to control into the textbox. If the application isn't found you could try a longer part of the windows title or try to enter a more specific word in there. Also, Spotify won't work right now and to select Google Chrome you have to enter keywords from your active tab. After that you would just need to click on "Set Name".  
+![Image of the new UI](http://i.imgur.com/lnmz6tz.png)  
+If you don't have already, select your Hotkeys by clicking into the textbox for the hotkey you want to set and press your desired hotkey and if you want to your modificator(ctrl, alt) and after that click on "Save Hotkeys". You can always delete the set Hotkeys by clicking on "Reset Hotkeys".  
