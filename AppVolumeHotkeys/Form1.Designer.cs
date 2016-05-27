@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.label_Description1 = new System.Windows.Forms.Label();
             this.button_SetName = new System.Windows.Forms.Button();
@@ -49,16 +50,20 @@
             this.label_AppVolume = new System.Windows.Forms.Label();
             this.label_AppMute = new System.Windows.Forms.Label();
             this.label_Description8 = new System.Windows.Forms.Label();
+            this.groupBox_Status = new System.Windows.Forms.GroupBox();
+            this.timer_Refresh = new System.Windows.Forms.Timer(this.components);
+            this.checkBox_Refresh = new System.Windows.Forms.CheckBox();
             this.CueTextBox_AppName = new AppVolumeHotkeys.CueTextBox();
             this.groupBox_Settings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_VolumeSteps)).BeginInit();
+            this.groupBox_Status.SuspendLayout();
             this.SuspendLayout();
             // 
             // label_Description1
             // 
-            this.label_Description1.Location = new System.Drawing.Point(8, 5);
+            this.label_Description1.Location = new System.Drawing.Point(4, 4);
             this.label_Description1.Name = "label_Description1";
-            this.label_Description1.Size = new System.Drawing.Size(220, 44);
+            this.label_Description1.Size = new System.Drawing.Size(205, 44);
             this.label_Description1.TabIndex = 0;
             this.label_Description1.Text = "A simple tool to control the volume of an application through global Hotkeys, whi" +
     "ch you can set in the three TextBoxes below.\r\n";
@@ -75,6 +80,7 @@
             // 
             // groupBox_Settings
             // 
+            this.groupBox_Settings.Controls.Add(this.checkBox_Refresh);
             this.groupBox_Settings.Controls.Add(this.checkBox_showLog);
             this.groupBox_Settings.Controls.Add(this.label_Description7);
             this.groupBox_Settings.Controls.Add(this.textBox_MuteHotkey);
@@ -89,7 +95,7 @@
             this.groupBox_Settings.Controls.Add(this.label_Description3);
             this.groupBox_Settings.Controls.Add(this.label_ProgramStatus);
             this.groupBox_Settings.Controls.Add(this.button_SetName);
-            this.groupBox_Settings.Location = new System.Drawing.Point(12, 46);
+            this.groupBox_Settings.Location = new System.Drawing.Point(7, 46);
             this.groupBox_Settings.Name = "groupBox_Settings";
             this.groupBox_Settings.Size = new System.Drawing.Size(207, 229);
             this.groupBox_Settings.TabIndex = 2;
@@ -101,9 +107,9 @@
             this.checkBox_showLog.AutoSize = true;
             this.checkBox_showLog.Location = new System.Drawing.Point(6, 206);
             this.checkBox_showLog.Name = "checkBox_showLog";
-            this.checkBox_showLog.Size = new System.Drawing.Size(103, 17);
+            this.checkBox_showLog.Size = new System.Drawing.Size(74, 17);
             this.checkBox_showLog.TabIndex = 16;
-            this.checkBox_showLog.Text = "Show debug log";
+            this.checkBox_showLog.Text = "Show Log";
             this.checkBox_showLog.UseVisualStyleBackColor = true;
             this.checkBox_showLog.CheckedChanged += new System.EventHandler(this.checkBox_showLog_CheckedChanged);
             // 
@@ -217,59 +223,84 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(233, 27);
+            this.textBox1.Location = new System.Drawing.Point(223, 19);
             this.textBox1.Margin = new System.Windows.Forms.Padding(2);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(238, 247);
+            this.textBox1.Size = new System.Drawing.Size(238, 296);
             this.textBox1.TabIndex = 3;
             this.textBox1.Text = "1 Debug Output";
             // 
             // label_Description4
             // 
             this.label_Description4.AutoSize = true;
-            this.label_Description4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_Description4.Location = new System.Drawing.Point(230, 5);
+            this.label_Description4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.label_Description4.Location = new System.Drawing.Point(6, 18);
             this.label_Description4.Name = "label_Description4";
-            this.label_Description4.Size = new System.Drawing.Size(57, 16);
+            this.label_Description4.Size = new System.Drawing.Size(45, 13);
             this.label_Description4.TabIndex = 5;
             this.label_Description4.Text = "Volume:";
-            this.label_Description4.Visible = false;
             // 
             // label_AppVolume
             // 
             this.label_AppVolume.AutoSize = true;
-            this.label_AppVolume.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_AppVolume.Location = new System.Drawing.Point(283, 5);
+            this.label_AppVolume.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.label_AppVolume.Location = new System.Drawing.Point(48, 18);
             this.label_AppVolume.Name = "label_AppVolume";
-            this.label_AppVolume.Size = new System.Drawing.Size(15, 16);
+            this.label_AppVolume.Size = new System.Drawing.Size(13, 13);
             this.label_AppVolume.TabIndex = 6;
             this.label_AppVolume.Text = "0";
-            this.label_AppVolume.Visible = false;
             // 
             // label_AppMute
             // 
             this.label_AppMute.AutoSize = true;
-            this.label_AppMute.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_AppMute.Location = new System.Drawing.Point(344, 5);
+            this.label_AppMute.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.label_AppMute.Location = new System.Drawing.Point(127, 18);
             this.label_AppMute.Name = "label_AppMute";
-            this.label_AppMute.Size = new System.Drawing.Size(26, 16);
+            this.label_AppMute.Size = new System.Drawing.Size(21, 13);
             this.label_AppMute.TabIndex = 7;
             this.label_AppMute.Text = "No";
-            this.label_AppMute.Visible = false;
             // 
             // label_Description8
             // 
             this.label_Description8.AutoSize = true;
-            this.label_Description8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_Description8.Location = new System.Drawing.Point(308, 5);
+            this.label_Description8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.label_Description8.Location = new System.Drawing.Point(96, 18);
             this.label_Description8.Name = "label_Description8";
-            this.label_Description8.Size = new System.Drawing.Size(40, 16);
+            this.label_Description8.Size = new System.Drawing.Size(34, 13);
             this.label_Description8.TabIndex = 8;
             this.label_Description8.Text = "Mute:";
-            this.label_Description8.Visible = false;
+            // 
+            // groupBox_Status
+            // 
+            this.groupBox_Status.Controls.Add(this.label_Description4);
+            this.groupBox_Status.Controls.Add(this.label_Description8);
+            this.groupBox_Status.Controls.Add(this.label_AppVolume);
+            this.groupBox_Status.Controls.Add(this.label_AppMute);
+            this.groupBox_Status.Location = new System.Drawing.Point(8, 275);
+            this.groupBox_Status.Name = "groupBox_Status";
+            this.groupBox_Status.Size = new System.Drawing.Size(205, 40);
+            this.groupBox_Status.TabIndex = 9;
+            this.groupBox_Status.TabStop = false;
+            this.groupBox_Status.Text = "Status";
+            // 
+            // timer_Refresh
+            // 
+            this.timer_Refresh.Interval = 500;
+            this.timer_Refresh.Tick += new System.EventHandler(this.timer_Refresh_Tick);
+            // 
+            // checkBox_Refresh
+            // 
+            this.checkBox_Refresh.AutoSize = true;
+            this.checkBox_Refresh.Location = new System.Drawing.Point(86, 206);
+            this.checkBox_Refresh.Name = "checkBox_Refresh";
+            this.checkBox_Refresh.Size = new System.Drawing.Size(113, 17);
+            this.checkBox_Refresh.TabIndex = 17;
+            this.checkBox_Refresh.Text = "Continuos Refresh";
+            this.checkBox_Refresh.UseVisualStyleBackColor = true;
+            this.checkBox_Refresh.CheckedChanged += new System.EventHandler(this.checkBox_Refresh_CheckedChanged);
             // 
             // CueTextBox_AppName
             // 
@@ -285,11 +316,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(231, 283);
-            this.Controls.Add(this.label_Description8);
-            this.Controls.Add(this.label_AppMute);
-            this.Controls.Add(this.label_AppVolume);
-            this.Controls.Add(this.label_Description4);
+            this.ClientSize = new System.Drawing.Size(221, 322);
+            this.Controls.Add(this.groupBox_Status);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.groupBox_Settings);
             this.Controls.Add(this.label_Description1);
@@ -300,11 +328,13 @@
             this.MaximizeBox = false;
             this.Name = "MainWindow";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
-            this.Text = "AppVolHot";
+            this.Text = "AppVolumeHotkeys";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
             this.groupBox_Settings.ResumeLayout(false);
             this.groupBox_Settings.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_VolumeSteps)).EndInit();
+            this.groupBox_Status.ResumeLayout(false);
+            this.groupBox_Status.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -333,6 +363,9 @@
         private System.Windows.Forms.Label label_Description7;
         private System.Windows.Forms.Label label_Description8;
         private System.Windows.Forms.CheckBox checkBox_showLog;
+        private System.Windows.Forms.GroupBox groupBox_Status;
+        private System.Windows.Forms.Timer timer_Refresh;
+        private System.Windows.Forms.CheckBox checkBox_Refresh;
     }
 }
 

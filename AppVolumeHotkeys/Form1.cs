@@ -16,8 +16,7 @@ namespace AppVolumeHotkeys
     {
         Keys VolUpHotkey, VolDownHotkey, VolUpModifier, VolDownModifier, MuteHotkey, MuteModifier;
         string AppName, LastName;
-        int PID, VolumeSteps;
-        int AppVolume, LogLine = 1;
+        int PID, VolumeSteps, AppVolume, LogLine = 1;
         bool AppMute;
 
         [DllImport("user32.dll")]
@@ -53,19 +52,19 @@ namespace AppVolumeHotkeys
             var converter = new KeysConverter();
 
             if (VolUpModifier != Keys.None)
-                textBox_VolUpHotkey.Text = converter.ConvertToString(VolUpModifier + "+" + VolUpHotkey);
+                textBox_VolUpHotkey.Text = converter.ConvertToString(VolUpModifier + " + " + VolUpHotkey);
 
             else if (VolUpModifier == Keys.None)
                 textBox_VolUpHotkey.Text = converter.ConvertToString(VolUpHotkey);
                 
             if (VolDownModifier != Keys.None)
-                textBox_VolDownHotkey.Text = converter.ConvertToString(VolDownModifier + "+" + VolDownHotkey);
+                textBox_VolDownHotkey.Text = converter.ConvertToString(VolDownModifier + " + " + VolDownHotkey);
                 
             else if (VolDownModifier == Keys.None)
                 textBox_VolDownHotkey.Text = converter.ConvertToString(VolDownHotkey);
 
             if (MuteModifier != Keys.None)
-                textBox_MuteHotkey.Text = converter.ConvertToString(MuteModifier + "+" + MuteHotkey);
+                textBox_MuteHotkey.Text = converter.ConvertToString(MuteModifier + " + " + MuteHotkey);
 
             else if (MuteModifier == Keys.None)
                 textBox_MuteHotkey.Text = converter.ConvertToString(MuteHotkey);
@@ -78,18 +77,20 @@ namespace AppVolumeHotkeys
         {
             AppName = CueTextBox_AppName.Text;
             foreach (var p in Process.GetProcesses())
+            {
                 if (p.MainWindowTitle.ToLower() == AppName.ToLower() | p.MainWindowTitle.ToLower().Contains(AppName.ToLower()))
                 {
                     textBox1.AppendText(Environment.NewLine + LogCountup() + " NewProgram: " + p.MainWindowTitle + " PID = " + p.Id);
-                    if (p.MainWindowTitle.Length > 56)
-                        label_ProgramStatus.Text = "Application '" + p.MainWindowTitle.Substring(0, 55) + "' found and set.";
-                    else label_ProgramStatus.Text = "Application '" + p.MainWindowTitle + "' found and set.";
+                    if (p.MainWindowTitle.Length > 63)
+                        label_ProgramStatus.Text = "Selected application: " + p.MainWindowTitle.Substring(0, 63);
+                    else label_ProgramStatus.Text = "Selected application: " + p.MainWindowTitle;
                     PID = p.Id;
                     WriteVolumeLabel();
                     WriteMuteLabel();
                     return;
                 }
                 else label_ProgramStatus.Text = "Can't find application '" + CueTextBox_AppName.Text + "'.";
+            }   
         }
 
         protected override void WndProc(ref Message m)
@@ -114,19 +115,39 @@ namespace AppVolumeHotkeys
 
         public void VolumeUp()
         {
+            foreach (var p in Process.GetProcesses())
+            {
+                if (p.Id == PID)
+                    if (p.MainWindowTitle.Length > 63)
+                        label_ProgramStatus.Text = "Selected application: " + p.MainWindowTitle.Substring(0, 63);
+                    else label_ProgramStatus.Text = "Selected application: " + p.MainWindowTitle;
+            }
             VolumeMixer.SetApplicationVolume(PID, AppVolume + VolumeSteps);
             WriteVolumeLabel();
         }
 
         public void VolumeDown()
         {
+            foreach (var p in Process.GetProcesses())
+            {
+                if (p.Id == PID)
+                    if (p.MainWindowTitle.Length > 63)
+                        label_ProgramStatus.Text = "Selected application: " + p.MainWindowTitle.Substring(0, 63);
+                    else label_ProgramStatus.Text = "Selected application: " + p.MainWindowTitle;
+            }
             VolumeMixer.SetApplicationVolume(PID, AppVolume - VolumeSteps);
             WriteVolumeLabel();
         }
 
         public void ToggleMute()
         {
-
+            foreach (var p in Process.GetProcesses())
+            {
+                if (p.Id == PID)
+                    if (p.MainWindowTitle.Length > 63)
+                        label_ProgramStatus.Text = "Selected application: " + p.MainWindowTitle.Substring(0, 63);
+                    else label_ProgramStatus.Text = "Selected application: " + p.MainWindowTitle;
+            }
             if (AppMute == false)
                 VolumeMixer.SetApplicationMute(PID, true);
             else VolumeMixer.SetApplicationMute(PID, false);
@@ -154,13 +175,12 @@ namespace AppVolumeHotkeys
         private void numericUpDown_VolumeSteps_ValueChanged(object sender, EventArgs e)
         {
             VolumeSteps = decimal.ToInt32(numericUpDown_VolumeSteps.Value);
-            textBox1.AppendText(Environment.NewLine + LogCountup() + " NewVolStep:" + VolumeSteps.ToString());
+            textBox1.AppendText(Environment.NewLine + LogCountup() + " New VolStep:" + VolumeSteps.ToString());
         }
 
         private void numericUpDown_VolumeSteps_KeyDown(object sender, KeyEventArgs e)
         {
             VolumeSteps = decimal.ToInt32(numericUpDown_VolumeSteps.Value);
-            //textBox1.Text = textBox1.Text + Environment.NewLine + VolumeSteps.ToString();
         }
 
         private void textBox_VolUpHotkey_KeyDown(object sender, KeyEventArgs e)
@@ -176,7 +196,7 @@ namespace AppVolumeHotkeys
 
             UnregisterHotKey(this.Handle, 1);
             RegisterHotKey(this.Handle, 1, (int)VolUpModifier, (int)VolUpHotkey);
-            textBox1.AppendText(Environment.NewLine + LogCountup() + " New VolUp Hotkey set: " + converter.ConvertToString(e.KeyData));
+            textBox1.AppendText(Environment.NewLine + LogCountup() + " New VolUpHotkey: " + converter.ConvertToString(e.KeyData));
         }
 
         private void textBox_VolDownHotkey_KeyDown(object sender, KeyEventArgs e)
@@ -192,7 +212,7 @@ namespace AppVolumeHotkeys
 
             UnregisterHotKey(this.Handle, 2);
             RegisterHotKey(this.Handle, 2, (int)VolDownModifier, (int)VolDownHotkey);
-            textBox1.AppendText(Environment.NewLine + LogCountup() + " New VolDown Hotkey set: " + converter.ConvertToString(e.KeyData));
+            textBox1.AppendText(Environment.NewLine + LogCountup() + " New VolDownHotkey: " + converter.ConvertToString(e.KeyData));
         }
 
         private void textBox_MuteHotkey_KeyDown(object sender, KeyEventArgs e)
@@ -208,7 +228,7 @@ namespace AppVolumeHotkeys
 
             UnregisterHotKey(this.Handle, 3);
             RegisterHotKey(this.Handle, 3, (int)MuteModifier, (int)MuteHotkey);
-            textBox1.AppendText(Environment.NewLine + LogCountup() + " New Mute Hotkey set: " + converter.ConvertToString(e.KeyData));
+            textBox1.AppendText(Environment.NewLine + LogCountup() + " New MuteHotkey: " + converter.ConvertToString(e.KeyData));
         }
 
         private void button_SaveHotkeys_Click(object sender, EventArgs e)
@@ -255,22 +275,14 @@ namespace AppVolumeHotkeys
         private void checkBox_showLog_CheckedChanged(object sender, EventArgs e)
         {
             string CheckState = checkBox_showLog.CheckState.ToString();
-            textBox1.AppendText(Environment.NewLine + LogCountup() + " NewCheckState: " + CheckState);
+            textBox1.AppendText(Environment.NewLine + LogCountup() + " New CheckState: " + CheckState);
             if (CheckState == "Checked")
             {
-                Size = new Size(498, 322);
-                label_Description4.Show();
-                label_Description8.Show();
-                label_AppMute.Show();
-                label_AppVolume.Show();
+                Size = new Size(483, 361);
             }
-            if (CheckState == "Unchecked")
+            else if (CheckState == "Unchecked")
             {
-                Size = new Size(247, 322);
-                label_Description4.Hide();
-                label_Description8.Hide();
-                label_AppMute.Hide();
-                label_AppVolume.Hide();
+                Size = new Size(237, 361);
             }
         }
 
@@ -278,6 +290,26 @@ namespace AppVolumeHotkeys
         {
             LogLine = LogLine + 1;
             return  LogLine.ToString();
+        }
+
+        private void checkBox_Refresh_CheckedChanged(object sender, EventArgs e)
+        {
+            string CheckState1 = checkBox_Refresh.CheckState.ToString();
+            textBox1.AppendText(Environment.NewLine + LogCountup() + " New CheckState1: " + CheckState1);
+            if (CheckState1 == "Checked")
+            {
+                timer_Refresh.Enabled = true;
+            }
+            else if (CheckState1 == "Unchecked")
+            {
+                timer_Refresh.Enabled = false;
+            }
+        }
+
+        private void timer_Refresh_Tick(object sender, EventArgs e)
+        {
+            WriteVolumeLabel();
+            WriteMuteLabel();
         }
 
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
