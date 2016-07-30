@@ -33,6 +33,7 @@
             this.label_Description1 = new System.Windows.Forms.Label();
             this.button_SetName = new System.Windows.Forms.Button();
             this.groupBox_Settings = new System.Windows.Forms.GroupBox();
+            this.checkBox_Refresh = new System.Windows.Forms.CheckBox();
             this.checkBox_showLog = new System.Windows.Forms.CheckBox();
             this.label_Description7 = new System.Windows.Forms.Label();
             this.textBox_MuteHotkey = new System.Windows.Forms.TextBox();
@@ -52,7 +53,6 @@
             this.label_Description8 = new System.Windows.Forms.Label();
             this.groupBox_Status = new System.Windows.Forms.GroupBox();
             this.timer_Refresh = new System.Windows.Forms.Timer(this.components);
-            this.checkBox_Refresh = new System.Windows.Forms.CheckBox();
             this.CueTextBox_AppName = new AppVolumeHotkeys.CueTextBox();
             this.groupBox_Settings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_VolumeSteps)).BeginInit();
@@ -61,12 +61,12 @@
             // 
             // label_Description1
             // 
-            this.label_Description1.Location = new System.Drawing.Point(4, 4);
+            this.label_Description1.Location = new System.Drawing.Point(5, 3);
             this.label_Description1.Name = "label_Description1";
             this.label_Description1.Size = new System.Drawing.Size(205, 44);
             this.label_Description1.TabIndex = 0;
-            this.label_Description1.Text = "A simple tool to control the volume of an application through global Hotkeys, whi" +
-    "ch you can set in the three TextBoxes below.\r\n";
+            this.label_Description1.Text = "1. Search for your target program\r\n2. Set your Hotkeys\r\n3. Adjust the size of you" +
+    "r volume steps";
             // 
             // button_SetName
             // 
@@ -101,6 +101,17 @@
             this.groupBox_Settings.TabIndex = 2;
             this.groupBox_Settings.TabStop = false;
             this.groupBox_Settings.Text = "Settings";
+            // 
+            // checkBox_Refresh
+            // 
+            this.checkBox_Refresh.AutoSize = true;
+            this.checkBox_Refresh.Location = new System.Drawing.Point(86, 206);
+            this.checkBox_Refresh.Name = "checkBox_Refresh";
+            this.checkBox_Refresh.Size = new System.Drawing.Size(113, 17);
+            this.checkBox_Refresh.TabIndex = 17;
+            this.checkBox_Refresh.Text = "Automatic Refresh";
+            this.checkBox_Refresh.UseVisualStyleBackColor = true;
+            this.checkBox_Refresh.CheckedChanged += new System.EventHandler(this.checkBox_Refresh_CheckedChanged);
             // 
             // checkBox_showLog
             // 
@@ -197,7 +208,7 @@
             this.numericUpDown_VolumeSteps.TabIndex = 6;
             this.numericUpDown_VolumeSteps.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.numericUpDown_VolumeSteps.Value = new decimal(new int[] {
-            10,
+            5,
             0,
             0,
             0});
@@ -209,9 +220,9 @@
             this.label_Description3.AutoSize = true;
             this.label_Description3.Location = new System.Drawing.Point(49, 77);
             this.label_Description3.Name = "label_Description3";
-            this.label_Description3.Size = new System.Drawing.Size(145, 13);
+            this.label_Description3.Size = new System.Drawing.Size(86, 13);
             this.label_Description3.TabIndex = 5;
-            this.label_Description3.Text = "Enter the Volume Steps here.";
+            this.label_Description3.Text = "Volume step size";
             // 
             // label_ProgramStatus
             // 
@@ -291,17 +302,6 @@
             this.timer_Refresh.Interval = 500;
             this.timer_Refresh.Tick += new System.EventHandler(this.timer_Refresh_Tick);
             // 
-            // checkBox_Refresh
-            // 
-            this.checkBox_Refresh.AutoSize = true;
-            this.checkBox_Refresh.Location = new System.Drawing.Point(86, 206);
-            this.checkBox_Refresh.Name = "checkBox_Refresh";
-            this.checkBox_Refresh.Size = new System.Drawing.Size(113, 17);
-            this.checkBox_Refresh.TabIndex = 17;
-            this.checkBox_Refresh.Text = "Continuos Refresh";
-            this.checkBox_Refresh.UseVisualStyleBackColor = true;
-            this.checkBox_Refresh.CheckedChanged += new System.EventHandler(this.checkBox_Refresh_CheckedChanged);
-            // 
             // CueTextBox_AppName
             // 
             this.CueTextBox_AppName.Cue = "Search keywords";
@@ -323,10 +323,11 @@
             this.Controls.Add(this.label_Description1);
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.DoubleBuffered = true;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "MainWindow";
+            this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = "AppVolumeHotkeys";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);

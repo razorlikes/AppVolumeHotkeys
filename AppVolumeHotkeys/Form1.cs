@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AppVolumeHotkeys
@@ -72,13 +66,18 @@ namespace AppVolumeHotkeys
             VolumeSteps = decimal.ToInt32(numericUpDown_VolumeSteps.Value);
         }
 
-
         private void button_SetName_Click(object sender, EventArgs e)
         {
             AppName = CueTextBox_AppName.Text;
             foreach (var p in Process.GetProcesses())
             {
-                if (p.MainWindowTitle.ToLower() == AppName.ToLower() | p.MainWindowTitle.ToLower().Contains(AppName.ToLower()))
+                if (AppName == "")
+                {
+                    MessageBox.Show("You need to enter at least one character.",
+                    "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else if (p.MainWindowTitle.ToLower() == AppName.ToLower() | p.MainWindowTitle.ToLower().Contains(AppName.ToLower()))
                 {
                     textBox1.AppendText(Environment.NewLine + LogCountup() + " NewProgram: " + p.MainWindowTitle + " PID = " + p.Id);
                     if (p.MainWindowTitle.Length > 63)
@@ -118,9 +117,11 @@ namespace AppVolumeHotkeys
             foreach (var p in Process.GetProcesses())
             {
                 if (p.Id == PID)
+                {
                     if (p.MainWindowTitle.Length > 63)
                         label_ProgramStatus.Text = "Selected application: " + p.MainWindowTitle.Substring(0, 63);
                     else label_ProgramStatus.Text = "Selected application: " + p.MainWindowTitle;
+                }
             }
             VolumeMixer.SetApplicationVolume(PID, AppVolume + VolumeSteps);
             WriteVolumeLabel();
@@ -131,9 +132,11 @@ namespace AppVolumeHotkeys
             foreach (var p in Process.GetProcesses())
             {
                 if (p.Id == PID)
+                {
                     if (p.MainWindowTitle.Length > 63)
                         label_ProgramStatus.Text = "Selected application: " + p.MainWindowTitle.Substring(0, 63);
                     else label_ProgramStatus.Text = "Selected application: " + p.MainWindowTitle;
+                }
             }
             VolumeMixer.SetApplicationVolume(PID, AppVolume - VolumeSteps);
             WriteVolumeLabel();
@@ -144,9 +147,11 @@ namespace AppVolumeHotkeys
             foreach (var p in Process.GetProcesses())
             {
                 if (p.Id == PID)
+                {
                     if (p.MainWindowTitle.Length > 63)
                         label_ProgramStatus.Text = "Selected application: " + p.MainWindowTitle.Substring(0, 63);
                     else label_ProgramStatus.Text = "Selected application: " + p.MainWindowTitle;
+                }
             }
             if (AppMute == false)
                 VolumeMixer.SetApplicationMute(PID, true);
