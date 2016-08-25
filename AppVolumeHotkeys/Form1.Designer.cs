@@ -34,7 +34,6 @@
             this.button_SetName = new System.Windows.Forms.Button();
             this.groupBox_Settings = new System.Windows.Forms.GroupBox();
             this.checkBox_Refresh = new System.Windows.Forms.CheckBox();
-            this.checkBox_showLog = new System.Windows.Forms.CheckBox();
             this.label_Description7 = new System.Windows.Forms.Label();
             this.textBox_MuteHotkey = new System.Windows.Forms.TextBox();
             this.button_ResetHotkeys = new System.Windows.Forms.Button();
@@ -81,7 +80,6 @@
             // groupBox_Settings
             // 
             this.groupBox_Settings.Controls.Add(this.checkBox_Refresh);
-            this.groupBox_Settings.Controls.Add(this.checkBox_showLog);
             this.groupBox_Settings.Controls.Add(this.label_Description7);
             this.groupBox_Settings.Controls.Add(this.textBox_MuteHotkey);
             this.groupBox_Settings.Controls.Add(this.button_ResetHotkeys);
@@ -97,7 +95,7 @@
             this.groupBox_Settings.Controls.Add(this.button_SetName);
             this.groupBox_Settings.Location = new System.Drawing.Point(7, 46);
             this.groupBox_Settings.Name = "groupBox_Settings";
-            this.groupBox_Settings.Size = new System.Drawing.Size(207, 229);
+            this.groupBox_Settings.Size = new System.Drawing.Size(207, 226);
             this.groupBox_Settings.TabIndex = 2;
             this.groupBox_Settings.TabStop = false;
             this.groupBox_Settings.Text = "Settings";
@@ -105,24 +103,12 @@
             // checkBox_Refresh
             // 
             this.checkBox_Refresh.AutoSize = true;
-            this.checkBox_Refresh.Location = new System.Drawing.Point(86, 206);
+            this.checkBox_Refresh.Location = new System.Drawing.Point(6, 204);
             this.checkBox_Refresh.Name = "checkBox_Refresh";
             this.checkBox_Refresh.Size = new System.Drawing.Size(113, 17);
             this.checkBox_Refresh.TabIndex = 17;
             this.checkBox_Refresh.Text = "Automatic Refresh";
             this.checkBox_Refresh.UseVisualStyleBackColor = true;
-            this.checkBox_Refresh.CheckedChanged += new System.EventHandler(this.checkBox_Refresh_CheckedChanged);
-            // 
-            // checkBox_showLog
-            // 
-            this.checkBox_showLog.AutoSize = true;
-            this.checkBox_showLog.Location = new System.Drawing.Point(6, 206);
-            this.checkBox_showLog.Name = "checkBox_showLog";
-            this.checkBox_showLog.Size = new System.Drawing.Size(74, 17);
-            this.checkBox_showLog.TabIndex = 16;
-            this.checkBox_showLog.Text = "Show Log";
-            this.checkBox_showLog.UseVisualStyleBackColor = true;
-            this.checkBox_showLog.CheckedChanged += new System.EventHandler(this.checkBox_showLog_CheckedChanged);
             // 
             // label_Description7
             // 
@@ -248,7 +234,7 @@
             // 
             this.label_Description4.AutoSize = true;
             this.label_Description4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label_Description4.Location = new System.Drawing.Point(6, 18);
+            this.label_Description4.Location = new System.Drawing.Point(6, 15);
             this.label_Description4.Name = "label_Description4";
             this.label_Description4.Size = new System.Drawing.Size(45, 13);
             this.label_Description4.TabIndex = 5;
@@ -258,7 +244,7 @@
             // 
             this.label_AppVolume.AutoSize = true;
             this.label_AppVolume.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label_AppVolume.Location = new System.Drawing.Point(48, 18);
+            this.label_AppVolume.Location = new System.Drawing.Point(48, 15);
             this.label_AppVolume.Name = "label_AppVolume";
             this.label_AppVolume.Size = new System.Drawing.Size(13, 13);
             this.label_AppVolume.TabIndex = 6;
@@ -268,7 +254,7 @@
             // 
             this.label_AppMute.AutoSize = true;
             this.label_AppMute.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label_AppMute.Location = new System.Drawing.Point(127, 18);
+            this.label_AppMute.Location = new System.Drawing.Point(127, 15);
             this.label_AppMute.Name = "label_AppMute";
             this.label_AppMute.Size = new System.Drawing.Size(21, 13);
             this.label_AppMute.TabIndex = 7;
@@ -278,7 +264,7 @@
             // 
             this.label_Description8.AutoSize = true;
             this.label_Description8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label_Description8.Location = new System.Drawing.Point(96, 18);
+            this.label_Description8.Location = new System.Drawing.Point(96, 15);
             this.label_Description8.Name = "label_Description8";
             this.label_Description8.Size = new System.Drawing.Size(34, 13);
             this.label_Description8.TabIndex = 8;
@@ -292,7 +278,7 @@
             this.groupBox_Status.Controls.Add(this.label_AppMute);
             this.groupBox_Status.Location = new System.Drawing.Point(8, 275);
             this.groupBox_Status.Name = "groupBox_Status";
-            this.groupBox_Status.Size = new System.Drawing.Size(205, 40);
+            this.groupBox_Status.Size = new System.Drawing.Size(205, 35);
             this.groupBox_Status.TabIndex = 9;
             this.groupBox_Status.TabStop = false;
             this.groupBox_Status.Text = "Status";
@@ -316,19 +302,18 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(221, 322);
+            this.ClientSize = new System.Drawing.Size(221, 317);
             this.Controls.Add(this.groupBox_Status);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.groupBox_Settings);
             this.Controls.Add(this.label_Description1);
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.DoubleBuffered = true;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "MainWindow";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = "AppVolumeHotkeys";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
             this.groupBox_Settings.ResumeLayout(false);
@@ -363,7 +348,6 @@
         private System.Windows.Forms.TextBox textBox_MuteHotkey;
         private System.Windows.Forms.Label label_Description7;
         private System.Windows.Forms.Label label_Description8;
-        private System.Windows.Forms.CheckBox checkBox_showLog;
         private System.Windows.Forms.GroupBox groupBox_Status;
         private System.Windows.Forms.Timer timer_Refresh;
         private System.Windows.Forms.CheckBox checkBox_Refresh;

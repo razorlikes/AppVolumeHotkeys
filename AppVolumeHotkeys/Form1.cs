@@ -10,7 +10,7 @@ namespace AppVolumeHotkeys
     {
         Keys VolUpHotkey, VolDownHotkey, VolUpModifier, VolDownModifier, MuteHotkey, MuteModifier;
         string AppName, LastName;
-        int PID, VolumeSteps, AppVolume, LogLine = 1;
+        int PID, VolumeSteps, AppVolume;
         bool AppMute;
 
         [DllImport("user32.dll")]
@@ -79,7 +79,6 @@ namespace AppVolumeHotkeys
                 }
                 else if (p.MainWindowTitle.ToLower() == AppName.ToLower() | p.MainWindowTitle.ToLower().Contains(AppName.ToLower()))
                 {
-                    textBox1.AppendText(Environment.NewLine + LogCountup() + " NewProgram: " + p.MainWindowTitle + " PID = " + p.Id);
                     if (p.MainWindowTitle.Length > 63)
                         label_ProgramStatus.Text = "Selected application: " + p.MainWindowTitle.Substring(0, 63);
                     else label_ProgramStatus.Text = "Selected application: " + p.MainWindowTitle;
@@ -97,17 +96,14 @@ namespace AppVolumeHotkeys
             if (m.Msg == WM_HOTKEY && (int)m.WParam == 1)
             {
                 VolumeUp();
-                textBox1.AppendText(Environment.NewLine + LogCountup() + " VolUp Hotkey received");
             }
             if (m.Msg == WM_HOTKEY && (int)m.WParam == 2)
             {
                 VolumeDown();
-                textBox1.AppendText(Environment.NewLine + LogCountup() + " VolDown Hotkey received");
             }
             if (m.Msg == WM_HOTKEY && (int)m.WParam == 3)
             {
                 ToggleMute();
-                textBox1.AppendText(Environment.NewLine + LogCountup() + " Mute Hotkey received");
             }
             base.WndProc(ref m);
         }
@@ -180,7 +176,6 @@ namespace AppVolumeHotkeys
         private void numericUpDown_VolumeSteps_ValueChanged(object sender, EventArgs e)
         {
             VolumeSteps = decimal.ToInt32(numericUpDown_VolumeSteps.Value);
-            textBox1.AppendText(Environment.NewLine + LogCountup() + " New VolStep:" + VolumeSteps.ToString());
         }
 
         private void numericUpDown_VolumeSteps_KeyDown(object sender, KeyEventArgs e)
@@ -201,7 +196,6 @@ namespace AppVolumeHotkeys
 
             UnregisterHotKey(this.Handle, 1);
             RegisterHotKey(this.Handle, 1, (int)VolUpModifier, (int)VolUpHotkey);
-            textBox1.AppendText(Environment.NewLine + LogCountup() + " New VolUpHotkey: " + converter.ConvertToString(e.KeyData));
         }
 
         private void textBox_VolDownHotkey_KeyDown(object sender, KeyEventArgs e)
@@ -217,7 +211,6 @@ namespace AppVolumeHotkeys
 
             UnregisterHotKey(this.Handle, 2);
             RegisterHotKey(this.Handle, 2, (int)VolDownModifier, (int)VolDownHotkey);
-            textBox1.AppendText(Environment.NewLine + LogCountup() + " New VolDownHotkey: " + converter.ConvertToString(e.KeyData));
         }
 
         private void textBox_MuteHotkey_KeyDown(object sender, KeyEventArgs e)
@@ -233,7 +226,6 @@ namespace AppVolumeHotkeys
 
             UnregisterHotKey(this.Handle, 3);
             RegisterHotKey(this.Handle, 3, (int)MuteModifier, (int)MuteHotkey);
-            textBox1.AppendText(Environment.NewLine + LogCountup() + " New MuteHotkey: " + converter.ConvertToString(e.KeyData));
         }
 
         private void button_SaveHotkeys_Click(object sender, EventArgs e)
@@ -250,7 +242,6 @@ namespace AppVolumeHotkeys
             textBox_VolUpHotkey.Text = converter.ConvertToString(Properties.Settings.Default.VolUpHotkey);
             textBox_VolDownHotkey.Text = converter.ConvertToString(Properties.Settings.Default.VolDownHotkey);
             textBox_MuteHotkey.Text = converter.ConvertToString(Properties.Settings.Default.MuteHotkey);
-            textBox1.AppendText(Environment.NewLine + LogCountup() + " Hotkeys saved");
         }
 
         private void button_ResetHotkeys_Click(object sender, EventArgs e)
@@ -274,41 +265,6 @@ namespace AppVolumeHotkeys
             VolDownModifier = Properties.Settings.Default.VolDownModifier;
             MuteHotkey = Properties.Settings.Default.MuteHotkey;
             MuteModifier = Properties.Settings.Default.MuteModifier;
-            textBox1.AppendText(Environment.NewLine + LogCountup() + " Hotkeys deleted");
-        }
-
-        private void checkBox_showLog_CheckedChanged(object sender, EventArgs e)
-        {
-            string CheckState = checkBox_showLog.CheckState.ToString();
-            textBox1.AppendText(Environment.NewLine + LogCountup() + " New CheckState: " + CheckState);
-            if (CheckState == "Checked")
-            {
-                Size = new Size(483, 361);
-            }
-            else if (CheckState == "Unchecked")
-            {
-                Size = new Size(237, 361);
-            }
-        }
-
-        public string LogCountup()
-        {
-            LogLine = LogLine + 1;
-            return  LogLine.ToString();
-        }
-
-        private void checkBox_Refresh_CheckedChanged(object sender, EventArgs e)
-        {
-            string CheckState1 = checkBox_Refresh.CheckState.ToString();
-            textBox1.AppendText(Environment.NewLine + LogCountup() + " New CheckState1: " + CheckState1);
-            if (CheckState1 == "Checked")
-            {
-                timer_Refresh.Enabled = true;
-            }
-            else if (CheckState1 == "Unchecked")
-            {
-                timer_Refresh.Enabled = false;
-            }
         }
 
         private void timer_Refresh_Tick(object sender, EventArgs e)
