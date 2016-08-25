@@ -1,7 +1,0 @@
-C:\Users\jniet\OneDrive\Visual Studio 2015\Projects\AppVolumeHotkeys\AppVolumeHotkeys\bin\Debug\AppVolumeHotkeys.exe
-C:\Users\jniet\OneDrive\Visual Studio 2015\Projects\AppVolumeHotkeys\AppVolumeHotkeys\bin\Debug\AppVolumeHotkeys.pdb
-C:\Users\jniet\OneDrive\Visual Studio 2015\Projects\AppVolumeHotkeys\AppVolumeHotkeys\obj\Debug\AppVolumeHotkeys.MainWindow.resources
-C:\Users\jniet\OneDrive\Visual Studio 2015\Projects\AppVolumeHotkeys\AppVolumeHotkeys\obj\Debug\AppVolumeHotkeys.csproj.GenerateResource.Cache
-C:\Users\jniet\OneDrive\Visual Studio 2015\Projects\AppVolumeHotkeys\AppVolumeHotkeys\obj\Debug\AppVolumeHotkeys.exe
-C:\Users\jniet\OneDrive\Visual Studio 2015\Projects\AppVolumeHotkeys\AppVolumeHotkeys\obj\Debug\AppVolumeHotkeys.pdb
-C:\Users\jniet\OneDrive\Visual Studio 2015\Projects\AppVolumeHotkeys\AppVolumeHotkeys\obj\Debug\AppVolumeHotkeys.csprojResolveAssemblyReference.cache
