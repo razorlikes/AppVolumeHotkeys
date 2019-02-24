@@ -280,11 +280,10 @@ namespace AppVolumeHotkeys
 
                 if (Properties.Settings.Default.FirstNotification)
                 {
-                    notifyIcon.ShowBalloonTip(5, "Running in background", "The program will stay open in the background, rightclick on the icon and select 'Exit' to close it.", ToolTipIcon.Info);
+                    notifyIcon.ShowBalloonTip(5, string.Empty, "AppVolumeHotkeys will stay open in the background when you close the window, rightclick on the tray icon and select 'Exit' to close it.", ToolTipIcon.None);
                     Properties.Settings.Default.FirstNotification = false;
                     Properties.Settings.Default.Save();
-                }
-                    
+                }   
 
                 e.Cancel = true;
             }

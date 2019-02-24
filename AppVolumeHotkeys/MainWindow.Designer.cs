@@ -54,14 +54,14 @@
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.cmsTray = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.itemOpen = new System.Windows.Forms.ToolStripMenuItem();
-            this.itemExit = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.itemMute = new System.Windows.Forms.ToolStripMenuItem();
-            this.itemAbout = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.itemVolUp = new System.Windows.Forms.ToolStripMenuItem();
             this.itemVolDown = new System.Windows.Forms.ToolStripMenuItem();
+            this.itemMute = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.itemAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.itemExit = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox_Settings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudVolumeSteps)).BeginInit();
             this.groupBox_Status.SuspendLayout();
@@ -236,7 +236,7 @@
             // 
             this.lblAppVolume.AutoSize = true;
             this.lblAppVolume.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblAppVolume.Location = new System.Drawing.Point(47, 16);
+            this.lblAppVolume.Location = new System.Drawing.Point(49, 16);
             this.lblAppVolume.Name = "lblAppVolume";
             this.lblAppVolume.Size = new System.Drawing.Size(13, 13);
             this.lblAppVolume.TabIndex = 6;
@@ -246,7 +246,7 @@
             // 
             this.lblAppMute.AutoSize = true;
             this.lblAppMute.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblAppMute.Location = new System.Drawing.Point(134, 16);
+            this.lblAppMute.Location = new System.Drawing.Point(136, 16);
             this.lblAppMute.Name = "lblAppMute";
             this.lblAppMute.Size = new System.Drawing.Size(21, 13);
             this.lblAppMute.TabIndex = 7;
@@ -306,64 +306,64 @@
             this.toolStripSeparator3,
             this.itemExit});
             this.cmsTray.Name = "cmsTray";
-            this.cmsTray.Size = new System.Drawing.Size(181, 176);
+            this.cmsTray.Size = new System.Drawing.Size(149, 154);
             // 
             // itemOpen
             // 
             this.itemOpen.Name = "itemOpen";
-            this.itemOpen.Size = new System.Drawing.Size(180, 22);
+            this.itemOpen.Size = new System.Drawing.Size(148, 22);
             this.itemOpen.Text = "Open";
             this.itemOpen.Click += new System.EventHandler(this.itemOpen_Click);
-            // 
-            // itemExit
-            // 
-            this.itemExit.Name = "itemExit";
-            this.itemExit.Size = new System.Drawing.Size(180, 22);
-            this.itemExit.Text = "Exit";
-            this.itemExit.Click += new System.EventHandler(this.itemExit_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
-            // 
-            // itemMute
-            // 
-            this.itemMute.Name = "itemMute";
-            this.itemMute.Size = new System.Drawing.Size(180, 22);
-            this.itemMute.Text = "Toggle Mute";
-            this.itemMute.Click += new System.EventHandler(this.itemMute_Click);
-            // 
-            // itemAbout
-            // 
-            this.itemAbout.Name = "itemAbout";
-            this.itemAbout.Size = new System.Drawing.Size(180, 22);
-            this.itemAbout.Text = "About";
-            this.itemAbout.Click += new System.EventHandler(this.itemAbout_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(145, 6);
             // 
             // itemVolUp
             // 
             this.itemVolUp.Name = "itemVolUp";
-            this.itemVolUp.Size = new System.Drawing.Size(180, 22);
+            this.itemVolUp.Size = new System.Drawing.Size(148, 22);
             this.itemVolUp.Text = "Volume Up";
             this.itemVolUp.Click += new System.EventHandler(this.itemVolUp_Click);
             // 
             // itemVolDown
             // 
             this.itemVolDown.Name = "itemVolDown";
-            this.itemVolDown.Size = new System.Drawing.Size(180, 22);
+            this.itemVolDown.Size = new System.Drawing.Size(148, 22);
             this.itemVolDown.Text = "Volume Down";
             this.itemVolDown.Click += new System.EventHandler(this.itemVolDown_Click);
+            // 
+            // itemMute
+            // 
+            this.itemMute.Name = "itemMute";
+            this.itemMute.Size = new System.Drawing.Size(148, 22);
+            this.itemMute.Text = "Toggle Mute";
+            this.itemMute.Click += new System.EventHandler(this.itemMute_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(145, 6);
+            // 
+            // itemAbout
+            // 
+            this.itemAbout.Name = "itemAbout";
+            this.itemAbout.Size = new System.Drawing.Size(148, 22);
+            this.itemAbout.Text = "About";
+            this.itemAbout.Click += new System.EventHandler(this.itemAbout_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(145, 6);
+            // 
+            // itemExit
+            // 
+            this.itemExit.Name = "itemExit";
+            this.itemExit.Size = new System.Drawing.Size(148, 22);
+            this.itemExit.Text = "Exit";
+            this.itemExit.Click += new System.EventHandler(this.itemExit_Click);
             // 
             // MainWindow
             // 

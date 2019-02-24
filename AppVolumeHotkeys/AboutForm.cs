@@ -9,10 +9,5 @@ namespace AppVolumeHotkeys
         {
             InitializeComponent();
         }
-
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start(e.Link.ToString());
-        }
     }
 }
