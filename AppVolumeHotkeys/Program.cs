@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using System.Windows.Forms;
 
 namespace AppVolumeHotkeys
@@ -14,7 +13,8 @@ namespace AppVolumeHotkeys
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainWindow());
+            MainWindow mainWindow = new MainWindow();
+            Application.Run(mainWindow);
         }
     }
 }
