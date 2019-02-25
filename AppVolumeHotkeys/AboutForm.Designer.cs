@@ -38,10 +38,10 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(40, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(216, 52);
+            this.label1.Size = new System.Drawing.Size(231, 52);
             this.label1.TabIndex = 0;
-            this.label1.Text = "AppVolumeHotkeys v2.0.0\r\n \r\nCopyright 2019 by Jeremy \"razorlikes\" Nieth.\r\nRelease" +
-    "d under the MIT license.";
+            this.label1.Text = "AppVolumeHotkeys v2.0.0\r\n \r\nCopyright (c) 2019 by Jeremy \"razorlikes\" Nieth.\r\nRel" +
+    "eased under the MIT license.";
             // 
             // label2
             // 
@@ -58,7 +58,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(265, 73);
+            this.ClientSize = new System.Drawing.Size(283, 70);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
