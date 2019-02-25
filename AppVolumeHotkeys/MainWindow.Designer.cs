@@ -43,7 +43,6 @@
             this.tbxVolUpHotkey = new System.Windows.Forms.TextBox();
             this.nudVolumeSteps = new System.Windows.Forms.NumericUpDown();
             this.label_Description3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.label_Description4 = new System.Windows.Forms.Label();
             this.lblAppVolume = new System.Windows.Forms.Label();
             this.lblAppMute = new System.Windows.Forms.Label();
@@ -95,7 +94,8 @@
             this.btnRefresh.Location = new System.Drawing.Point(178, 16);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(23, 23);
-            this.btnRefresh.TabIndex = 18;
+            this.btnRefresh.TabIndex = 1;
+            this.btnRefresh.TabStop = false;
             this.btnRefresh.Text = "Q";
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
@@ -107,7 +107,8 @@
             this.cmbAppName.Location = new System.Drawing.Point(6, 17);
             this.cmbAppName.Name = "cmbAppName";
             this.cmbAppName.Size = new System.Drawing.Size(166, 21);
-            this.cmbAppName.TabIndex = 1;
+            this.cmbAppName.TabIndex = 18;
+            this.cmbAppName.TabStop = false;
             this.cmbAppName.SelectedIndexChanged += new System.EventHandler(this.comboBox_AppName_SelectedIndexChanged);
             // 
             // label_Description7
@@ -121,11 +122,13 @@
             // 
             // tbxMuteHotkey
             // 
+            this.tbxMuteHotkey.Cursor = System.Windows.Forms.Cursors.Hand;
             this.tbxMuteHotkey.Location = new System.Drawing.Point(6, 123);
             this.tbxMuteHotkey.Name = "tbxMuteHotkey";
             this.tbxMuteHotkey.ReadOnly = true;
             this.tbxMuteHotkey.Size = new System.Drawing.Size(100, 20);
             this.tbxMuteHotkey.TabIndex = 14;
+            this.tbxMuteHotkey.TabStop = false;
             this.tbxMuteHotkey.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_MuteHotkey_KeyDown);
             // 
             // btnResetHotkeys
@@ -134,6 +137,7 @@
             this.btnResetHotkeys.Name = "btnResetHotkeys";
             this.btnResetHotkeys.Size = new System.Drawing.Size(94, 23);
             this.btnResetHotkeys.TabIndex = 13;
+            this.btnResetHotkeys.TabStop = false;
             this.btnResetHotkeys.Text = "Reset Hotkeys";
             this.btnResetHotkeys.UseVisualStyleBackColor = true;
             this.btnResetHotkeys.Click += new System.EventHandler(this.button_ResetHotkeys_Click);
@@ -144,6 +148,7 @@
             this.btnSaveHotkeys.Name = "btnSaveHotkeys";
             this.btnSaveHotkeys.Size = new System.Drawing.Size(94, 23);
             this.btnSaveHotkeys.TabIndex = 12;
+            this.btnSaveHotkeys.TabStop = false;
             this.btnSaveHotkeys.Text = "Save Hotkeys";
             this.btnSaveHotkeys.UseVisualStyleBackColor = true;
             this.btnSaveHotkeys.Click += new System.EventHandler(this.button_SaveHotkeys_Click);
@@ -168,22 +173,27 @@
             // 
             // tbxVolDownHotkey
             // 
+            this.tbxVolDownHotkey.Cursor = System.Windows.Forms.Cursors.Hand;
             this.tbxVolDownHotkey.Location = new System.Drawing.Point(6, 97);
             this.tbxVolDownHotkey.MaxLength = 0;
             this.tbxVolDownHotkey.Name = "tbxVolDownHotkey";
             this.tbxVolDownHotkey.ReadOnly = true;
             this.tbxVolDownHotkey.Size = new System.Drawing.Size(100, 20);
             this.tbxVolDownHotkey.TabIndex = 9;
+            this.tbxVolDownHotkey.TabStop = false;
             this.tbxVolDownHotkey.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_VolDownHotkey_KeyDown);
             // 
             // tbxVolUpHotkey
             // 
+            this.tbxVolUpHotkey.BackColor = System.Drawing.SystemColors.Control;
+            this.tbxVolUpHotkey.Cursor = System.Windows.Forms.Cursors.Hand;
             this.tbxVolUpHotkey.Location = new System.Drawing.Point(6, 71);
             this.tbxVolUpHotkey.MaxLength = 0;
             this.tbxVolUpHotkey.Name = "tbxVolUpHotkey";
             this.tbxVolUpHotkey.ReadOnly = true;
             this.tbxVolUpHotkey.Size = new System.Drawing.Size(100, 20);
             this.tbxVolUpHotkey.TabIndex = 8;
+            this.tbxVolUpHotkey.TabStop = false;
             this.tbxVolUpHotkey.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_VolUpHotkey_KeyDown);
             // 
             // nudVolumeSteps
@@ -192,6 +202,7 @@
             this.nudVolumeSteps.Name = "nudVolumeSteps";
             this.nudVolumeSteps.Size = new System.Drawing.Size(39, 20);
             this.nudVolumeSteps.TabIndex = 6;
+            this.nudVolumeSteps.TabStop = false;
             this.nudVolumeSteps.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudVolumeSteps.Value = new decimal(new int[] {
             5,
@@ -209,18 +220,6 @@
             this.label_Description3.Size = new System.Drawing.Size(86, 13);
             this.label_Description3.TabIndex = 5;
             this.label_Description3.Text = "Volume step size";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(319, 19);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(238, 296);
-            this.textBox1.TabIndex = 3;
-            this.textBox1.Text = "1 Debug Output";
             // 
             // label_Description4
             // 
@@ -292,6 +291,7 @@
             this.notifyIcon.Text = "AppVolumeHotkeys";
             this.notifyIcon.Visible = true;
             this.notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
+            this.notifyIcon.MouseMove += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseMove);
             // 
             // cmsTray
             // 
@@ -373,7 +373,6 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(231, 246);
             this.Controls.Add(this.groupBox_Status);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.groupBox_Settings);
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.DoubleBuffered = true;
@@ -392,13 +391,11 @@
             this.groupBox_Status.PerformLayout();
             this.cmsTray.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
         private System.Windows.Forms.GroupBox groupBox_Settings;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label_Description3;
         private System.Windows.Forms.NumericUpDown nudVolumeSteps;
         private System.Windows.Forms.Label label_Description4;

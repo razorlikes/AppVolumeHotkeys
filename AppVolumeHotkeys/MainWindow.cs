@@ -154,6 +154,8 @@ namespace AppVolumeHotkeys
 
             UnregisterHotKey(this.Handle, 1);
             RegisterHotKey(this.Handle, 1, (int)VolUpModifier, (int)VolUpHotkey);
+
+            lblAppVolume.Focus(); //dirty workaround to remove focus from textbox after setting hotkey
         }
 
         private void textBox_VolDownHotkey_KeyDown(object sender, KeyEventArgs e)
@@ -169,6 +171,8 @@ namespace AppVolumeHotkeys
 
             UnregisterHotKey(this.Handle, 2);
             RegisterHotKey(this.Handle, 2, (int)VolDownModifier, (int)VolDownHotkey);
+
+            lblAppVolume.Focus(); //dirty workaround to remove focus from textbox after setting hotkey
         }
 
         private void textBox_MuteHotkey_KeyDown(object sender, KeyEventArgs e)
@@ -184,6 +188,8 @@ namespace AppVolumeHotkeys
 
             UnregisterHotKey(this.Handle, 3);
             RegisterHotKey(this.Handle, 3, (int)MuteModifier, (int)MuteHotkey);
+
+            lblAppVolume.Focus(); //dirty workaround to remove focus from textbox after setting hotkey
         }
 
         private void button_SaveHotkeys_Click(object sender, EventArgs e)
@@ -236,6 +242,13 @@ namespace AppVolumeHotkeys
             this.Show();
         }
 
+        private void notifyIcon_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (AppMute)
+                notifyIcon.Text = "AppVolumeHotkeys\nVolume: " + AppVolume.ToString() + " | Mute: Yes";
+            else notifyIcon.Text = "AppVolumeHotkeys\nVolume: " + AppVolume.ToString() + " | Mute: No";
+        }
+
         private void itemOpen_Click(object sender, EventArgs e)
         {
             this.Show();
@@ -271,9 +284,6 @@ namespace AppVolumeHotkeys
             Properties.Settings.Default.LastVolStep = decimal.ToInt32(nudVolumeSteps.Value);
             Properties.Settings.Default.Save();
 
-            UnregisterHotKey(this.Handle, 1);
-            UnregisterHotKey(this.Handle, 2);
-
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 this.Hide();
@@ -283,10 +293,14 @@ namespace AppVolumeHotkeys
                     notifyIcon.ShowBalloonTip(5, string.Empty, "AppVolumeHotkeys will stay open in the background when you close the window, rightclick on the tray icon and select 'Exit' to close it.", ToolTipIcon.None);
                     Properties.Settings.Default.FirstNotification = false;
                     Properties.Settings.Default.Save();
-                }   
+                }
 
                 e.Cancel = true;
+                return;
             }
+
+            UnregisterHotKey(this.Handle, 1);
+            UnregisterHotKey(this.Handle, 2);
         }
     }
 }
