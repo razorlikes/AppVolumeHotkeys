@@ -301,6 +301,7 @@ namespace AppVolumeHotkeys
 
             UnregisterHotKey(this.Handle, 1);
             UnregisterHotKey(this.Handle, 2);
+            UnregisterHotKey(this.Handle, 3);
         }
     }
 }
