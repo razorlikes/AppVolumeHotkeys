@@ -1,4 +1,4 @@
-![](https://i.imgur.com/Nu5LIFO.png?3)  
+![](https://i.imgur.com/Nu5LIFO.png)  
 
 ![](https://img.shields.io/github/license/razorlikes/AppVolumeHotkeys)
 ![](https://img.shields.io/github/downloads/razorlikes/AppVolumeHotkeys/total)  
@@ -14,6 +14,9 @@ If you have any ideas or find any bugs, please open an issue.
 ## Getting Started
 
 ### Prerequisites
+
+<img align="right" src="https://i.imgur.com/dmeNEnr.png">
+
 To use AppVolumeHotkeys you only need:
 * A computer with at least Windows Vista
 * [Microsoft .NET Framework 4](https://www.microsoft.com/en-us/download/details.aspx?id=17851)
@@ -28,6 +31,8 @@ Simply select the desired application from the drop down menu, set some hotkeys 
 
 * [Microsoft Visual Studio 2019 Community](https://www.visualstudio.com/vs/) - The IDE and Compiler used
 * [CSCore 1.2.1.2](https://github.com/filoe/cscore) - The audio library used to control volumes
+* [Fody 6.0.2](https://github.com/Fody/Fody) - The tool used to embed assemblies
+* [Fody Costura 4.1.0](https://github.com/Fody/Costura) - Fody addon used to embed DLLs into application
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details

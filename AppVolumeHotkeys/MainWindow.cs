@@ -59,28 +59,29 @@ namespace AppVolumeHotkeys
 
             VolumeSteps = decimal.ToInt32(nudVolumeSteps.Value);
 
-            backgroundWorker.RunWorkerAsync();
-        }
-
-        private void backgroundWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
-        {
             volumeMixer = new VolumeMixer();
-        }
 
-        private void backgroundWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
-        {
+            cmbEndpoints.DataSource = volumeMixer.GetEndpointNames();
             cmbAppName.DataSource = volumeMixer.GetSessionNames();
-        }
 
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
-            backgroundWorker.RunWorkerAsync();
-        }
+            int maxwidth = 166;
 
-        private void comboBox_AppName_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            WriteVolumeLabel();
-            WriteMuteLabel();
+            foreach (string item in cmbEndpoints.Items)
+                if (maxwidth < TextRenderer.MeasureText(item, cmbEndpoints.Font).Width)
+                    maxwidth = TextRenderer.MeasureText(item, cmbEndpoints.Font).Width;
+
+            cmbEndpoints.DropDownWidth = maxwidth;
+
+            maxwidth = 166;
+
+            foreach (string item in cmbAppName.Items)
+                if (maxwidth < TextRenderer.MeasureText(item, cmbAppName.Font).Width)
+                    maxwidth = TextRenderer.MeasureText(item, cmbAppName.Font).Width;
+
+            cmbAppName.DropDownWidth = maxwidth;
+
+            if (cmbEndpoints.FindStringExact(Properties.Settings.Default.LastEndpointName) != -1)
+                cmbEndpoints.SelectedIndex = cmbEndpoints.FindStringExact(Properties.Settings.Default.LastEndpointName);
         }
 
         protected override void WndProc(ref Message m)
@@ -95,6 +96,28 @@ namespace AppVolumeHotkeys
                 ToggleMute();
 
             base.WndProc(ref m);
+        }
+
+        private void btnAppNameRefresh_Click(object sender, EventArgs e)
+        {
+            cmbAppName.DataSource = volumeMixer.GetSessionNames();
+        }
+
+        private void btnEndpointsRefresh_Click(object sender, EventArgs e)
+        {
+            cmbEndpoints.DataSource = volumeMixer.GetEndpointNames();
+        }
+
+        private void cmbAppName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            WriteVolumeLabel();
+            WriteMuteLabel();
+        }
+
+        private void cmbEndpoints_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            volumeMixer.SetEndpoint(cmbEndpoints.SelectedIndex);
+            cmbAppName.DataSource = volumeMixer.GetSessionNames();
         }
 
         public void VolumeUp()
@@ -282,6 +305,7 @@ namespace AppVolumeHotkeys
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             Properties.Settings.Default.LastVolStep = decimal.ToInt32(nudVolumeSteps.Value);
+            Properties.Settings.Default.LastEndpointName = cmbEndpoints.Text;
             Properties.Settings.Default.Save();
 
             if (e.CloseReason == CloseReason.UserClosing)

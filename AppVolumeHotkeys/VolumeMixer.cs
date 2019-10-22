@@ -9,8 +9,19 @@ namespace AppVolumeHotkeys
 
         public VolumeMixer()
         {
-            AudioSessionManager2 audioSessionManager = AudioSessionManager2.FromMMDevice(MMDeviceEnumerator.DefaultAudioEndpoint(DataFlow.Render, Role.Multimedia));
-            audioSessionEnumerator = audioSessionManager.GetSessionEnumerator();
+
+        }
+
+        public List<string> GetEndpointNames()
+        {
+            List<string> endpointNames = new List<string>();
+
+            foreach (MMDevice endpoint in MMDeviceEnumerator.EnumerateDevices(DataFlow.Render, DeviceState.Active))
+            {
+                endpointNames.Add(endpoint.FriendlyName);
+            }
+
+            return endpointNames;
         }
 
         public List<string> GetSessionNames()
@@ -27,6 +38,12 @@ namespace AppVolumeHotkeys
             }
 
             return sessionNames;
+        }
+
+        public void SetEndpoint(int index)
+        {
+            AudioSessionManager2 audioSessionManager = AudioSessionManager2.FromMMDevice(MMDeviceEnumerator.EnumerateDevices(DataFlow.Render, DeviceState.Active)[index]);
+            audioSessionEnumerator = audioSessionManager.GetSessionEnumerator();
         }
 
         public int GetApplicationVolume(int index)

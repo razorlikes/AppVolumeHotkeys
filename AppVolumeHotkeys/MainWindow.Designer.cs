@@ -31,7 +31,9 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.groupBox_Settings = new System.Windows.Forms.GroupBox();
-            this.btnRefresh = new System.Windows.Forms.Button();
+            this.btnEndpointsRefresh = new System.Windows.Forms.Button();
+            this.cmbEndpoints = new System.Windows.Forms.ComboBox();
+            this.btnAppNameRefresh = new System.Windows.Forms.Button();
             this.cmbAppName = new System.Windows.Forms.ComboBox();
             this.label_Description7 = new System.Windows.Forms.Label();
             this.tbxMuteHotkey = new System.Windows.Forms.TextBox();
@@ -49,7 +51,6 @@
             this.label_Description8 = new System.Windows.Forms.Label();
             this.groupBox_Status = new System.Windows.Forms.GroupBox();
             this.timer_Refresh = new System.Windows.Forms.Timer(this.components);
-            this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.cmsTray = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.itemOpen = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,7 +70,9 @@
             // 
             // groupBox_Settings
             // 
-            this.groupBox_Settings.Controls.Add(this.btnRefresh);
+            this.groupBox_Settings.Controls.Add(this.btnEndpointsRefresh);
+            this.groupBox_Settings.Controls.Add(this.cmbEndpoints);
+            this.groupBox_Settings.Controls.Add(this.btnAppNameRefresh);
             this.groupBox_Settings.Controls.Add(this.cmbAppName);
             this.groupBox_Settings.Controls.Add(this.label_Description7);
             this.groupBox_Settings.Controls.Add(this.tbxMuteHotkey);
@@ -83,38 +86,61 @@
             this.groupBox_Settings.Controls.Add(this.label_Description3);
             this.groupBox_Settings.Location = new System.Drawing.Point(12, 12);
             this.groupBox_Settings.Name = "groupBox_Settings";
-            this.groupBox_Settings.Size = new System.Drawing.Size(207, 178);
+            this.groupBox_Settings.Size = new System.Drawing.Size(207, 207);
             this.groupBox_Settings.TabIndex = 2;
             this.groupBox_Settings.TabStop = false;
             this.groupBox_Settings.Text = "Settings";
             // 
-            // btnRefresh
+            // btnEndpointsRefresh
             // 
-            this.btnRefresh.Font = new System.Drawing.Font("Wingdings 3", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.btnRefresh.Location = new System.Drawing.Point(178, 16);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(23, 23);
-            this.btnRefresh.TabIndex = 1;
-            this.btnRefresh.TabStop = false;
-            this.btnRefresh.Text = "Q";
-            this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            this.btnEndpointsRefresh.Font = new System.Drawing.Font("Wingdings 3", 9F, System.Drawing.FontStyle.Bold);
+            this.btnEndpointsRefresh.Location = new System.Drawing.Point(178, 18);
+            this.btnEndpointsRefresh.Name = "btnEndpointsRefresh";
+            this.btnEndpointsRefresh.Size = new System.Drawing.Size(23, 23);
+            this.btnEndpointsRefresh.TabIndex = 20;
+            this.btnEndpointsRefresh.Text = "Q";
+            this.btnEndpointsRefresh.UseVisualStyleBackColor = true;
+            this.btnEndpointsRefresh.Click += new System.EventHandler(this.btnEndpointsRefresh_Click);
+            // 
+            // cmbEndpoints
+            // 
+            this.cmbEndpoints.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbEndpoints.DropDownWidth = 206;
+            this.cmbEndpoints.FormattingEnabled = true;
+            this.cmbEndpoints.Location = new System.Drawing.Point(6, 19);
+            this.cmbEndpoints.Name = "cmbEndpoints";
+            this.cmbEndpoints.Size = new System.Drawing.Size(166, 21);
+            this.cmbEndpoints.TabIndex = 19;
+            this.cmbEndpoints.TabStop = false;
+            this.cmbEndpoints.SelectedIndexChanged += new System.EventHandler(this.cmbEndpoints_SelectedIndexChanged);
+            // 
+            // btnAppNameRefresh
+            // 
+            this.btnAppNameRefresh.Font = new System.Drawing.Font("Wingdings 3", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.btnAppNameRefresh.Location = new System.Drawing.Point(178, 43);
+            this.btnAppNameRefresh.Name = "btnAppNameRefresh";
+            this.btnAppNameRefresh.Size = new System.Drawing.Size(23, 23);
+            this.btnAppNameRefresh.TabIndex = 1;
+            this.btnAppNameRefresh.TabStop = false;
+            this.btnAppNameRefresh.Text = "Q";
+            this.btnAppNameRefresh.UseVisualStyleBackColor = true;
+            this.btnAppNameRefresh.Click += new System.EventHandler(this.btnAppNameRefresh_Click);
             // 
             // cmbAppName
             // 
             this.cmbAppName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbAppName.FormattingEnabled = true;
-            this.cmbAppName.Location = new System.Drawing.Point(6, 17);
+            this.cmbAppName.Location = new System.Drawing.Point(6, 44);
             this.cmbAppName.Name = "cmbAppName";
             this.cmbAppName.Size = new System.Drawing.Size(166, 21);
             this.cmbAppName.TabIndex = 18;
             this.cmbAppName.TabStop = false;
-            this.cmbAppName.SelectedIndexChanged += new System.EventHandler(this.comboBox_AppName_SelectedIndexChanged);
+            this.cmbAppName.SelectedIndexChanged += new System.EventHandler(this.cmbAppName_SelectedIndexChanged);
             // 
             // label_Description7
             // 
             this.label_Description7.AutoSize = true;
-            this.label_Description7.Location = new System.Drawing.Point(112, 126);
+            this.label_Description7.Location = new System.Drawing.Point(112, 153);
             this.label_Description7.Name = "label_Description7";
             this.label_Description7.Size = new System.Drawing.Size(68, 13);
             this.label_Description7.TabIndex = 15;
@@ -123,7 +149,7 @@
             // tbxMuteHotkey
             // 
             this.tbxMuteHotkey.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.tbxMuteHotkey.Location = new System.Drawing.Point(6, 123);
+            this.tbxMuteHotkey.Location = new System.Drawing.Point(6, 150);
             this.tbxMuteHotkey.Name = "tbxMuteHotkey";
             this.tbxMuteHotkey.ReadOnly = true;
             this.tbxMuteHotkey.Size = new System.Drawing.Size(100, 20);
@@ -133,7 +159,7 @@
             // 
             // btnResetHotkeys
             // 
-            this.btnResetHotkeys.Location = new System.Drawing.Point(107, 149);
+            this.btnResetHotkeys.Location = new System.Drawing.Point(107, 176);
             this.btnResetHotkeys.Name = "btnResetHotkeys";
             this.btnResetHotkeys.Size = new System.Drawing.Size(94, 23);
             this.btnResetHotkeys.TabIndex = 13;
@@ -144,7 +170,7 @@
             // 
             // btnSaveHotkeys
             // 
-            this.btnSaveHotkeys.Location = new System.Drawing.Point(6, 149);
+            this.btnSaveHotkeys.Location = new System.Drawing.Point(6, 176);
             this.btnSaveHotkeys.Name = "btnSaveHotkeys";
             this.btnSaveHotkeys.Size = new System.Drawing.Size(94, 23);
             this.btnSaveHotkeys.TabIndex = 12;
@@ -156,7 +182,7 @@
             // label_Description6
             // 
             this.label_Description6.AutoSize = true;
-            this.label_Description6.Location = new System.Drawing.Point(112, 100);
+            this.label_Description6.Location = new System.Drawing.Point(112, 127);
             this.label_Description6.Name = "label_Description6";
             this.label_Description6.Size = new System.Drawing.Size(87, 13);
             this.label_Description6.TabIndex = 11;
@@ -165,7 +191,7 @@
             // label_Description5
             // 
             this.label_Description5.AutoSize = true;
-            this.label_Description5.Location = new System.Drawing.Point(112, 74);
+            this.label_Description5.Location = new System.Drawing.Point(112, 101);
             this.label_Description5.Name = "label_Description5";
             this.label_Description5.Size = new System.Drawing.Size(73, 13);
             this.label_Description5.TabIndex = 10;
@@ -174,7 +200,7 @@
             // tbxVolDownHotkey
             // 
             this.tbxVolDownHotkey.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.tbxVolDownHotkey.Location = new System.Drawing.Point(6, 97);
+            this.tbxVolDownHotkey.Location = new System.Drawing.Point(6, 124);
             this.tbxVolDownHotkey.MaxLength = 0;
             this.tbxVolDownHotkey.Name = "tbxVolDownHotkey";
             this.tbxVolDownHotkey.ReadOnly = true;
@@ -187,7 +213,7 @@
             // 
             this.tbxVolUpHotkey.BackColor = System.Drawing.SystemColors.Control;
             this.tbxVolUpHotkey.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.tbxVolUpHotkey.Location = new System.Drawing.Point(6, 71);
+            this.tbxVolUpHotkey.Location = new System.Drawing.Point(6, 98);
             this.tbxVolUpHotkey.MaxLength = 0;
             this.tbxVolUpHotkey.Name = "tbxVolUpHotkey";
             this.tbxVolUpHotkey.ReadOnly = true;
@@ -198,7 +224,7 @@
             // 
             // nudVolumeSteps
             // 
-            this.nudVolumeSteps.Location = new System.Drawing.Point(6, 45);
+            this.nudVolumeSteps.Location = new System.Drawing.Point(6, 72);
             this.nudVolumeSteps.Name = "nudVolumeSteps";
             this.nudVolumeSteps.Size = new System.Drawing.Size(39, 20);
             this.nudVolumeSteps.TabIndex = 6;
@@ -215,7 +241,7 @@
             // label_Description3
             // 
             this.label_Description3.AutoSize = true;
-            this.label_Description3.Location = new System.Drawing.Point(49, 48);
+            this.label_Description3.Location = new System.Drawing.Point(49, 75);
             this.label_Description3.Name = "label_Description3";
             this.label_Description3.Size = new System.Drawing.Size(86, 13);
             this.label_Description3.TabIndex = 5;
@@ -267,7 +293,7 @@
             this.groupBox_Status.Controls.Add(this.label_Description8);
             this.groupBox_Status.Controls.Add(this.lblAppVolume);
             this.groupBox_Status.Controls.Add(this.lblAppMute);
-            this.groupBox_Status.Location = new System.Drawing.Point(12, 196);
+            this.groupBox_Status.Location = new System.Drawing.Point(12, 225);
             this.groupBox_Status.Name = "groupBox_Status";
             this.groupBox_Status.Size = new System.Drawing.Size(207, 38);
             this.groupBox_Status.TabIndex = 9;
@@ -279,11 +305,6 @@
             this.timer_Refresh.Enabled = true;
             this.timer_Refresh.Interval = 500;
             this.timer_Refresh.Tick += new System.EventHandler(this.timer_Refresh_Tick);
-            // 
-            // backgroundWorker
-            // 
-            this.backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker_DoWork);
-            this.backgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker_RunWorkerCompleted);
             // 
             // notifyIcon
             // 
@@ -371,7 +392,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(231, 246);
+            this.ClientSize = new System.Drawing.Size(231, 275);
             this.Controls.Add(this.groupBox_Status);
             this.Controls.Add(this.groupBox_Settings);
             this.Cursor = System.Windows.Forms.Cursors.Default;
@@ -413,8 +434,7 @@
         private System.Windows.Forms.GroupBox groupBox_Status;
         private System.Windows.Forms.Timer timer_Refresh;
         private System.Windows.Forms.ComboBox cmbAppName;
-        private System.ComponentModel.BackgroundWorker backgroundWorker;
-        private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.Button btnAppNameRefresh;
         private System.Windows.Forms.NotifyIcon notifyIcon;
         private System.Windows.Forms.ContextMenuStrip cmsTray;
         private System.Windows.Forms.ToolStripMenuItem itemOpen;
@@ -426,6 +446,8 @@
         private System.Windows.Forms.ToolStripMenuItem itemVolUp;
         private System.Windows.Forms.ToolStripMenuItem itemVolDown;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.Button btnEndpointsRefresh;
+        private System.Windows.Forms.ComboBox cmbEndpoints;
     }
 }
 
