@@ -31,7 +31,7 @@ Simply select the desired application from the drop down menu, set some hotkeys 
 
 * [Microsoft Visual Studio 2019 Community](https://www.visualstudio.com/vs/) - The IDE and Compiler used
 * [CSCore 1.2.1.2](https://github.com/filoe/cscore) - The audio library used to control volumes
-* [Fody 6.0.2](https://github.com/Fody/Fody) - The tool used to embed assemblies
+* [Fody 6.1.1](https://github.com/Fody/Fody) - The tool used to embed assemblies
 * [Fody Costura 4.1.0](https://github.com/Fody/Costura) - Fody addon used to embed DLLs into application
 
 ## License
