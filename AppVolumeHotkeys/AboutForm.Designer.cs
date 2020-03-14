@@ -46,7 +46,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(231, 78);
             this.label1.TabIndex = 0;
-            this.label1.Text = "AppVolumeHotkeys v2.1.0\r\n \r\nCopyright (c) 2019 by Jeremy \"razorlikes\" Nieth.\r\nRel" +
+            this.label1.Text = "AppVolumeHotkeys v2.1.1\r\n \r\nCopyright (c) 2020 by Jeremy \"razorlikes\" Nieth.\r\nRel" +
     "eased under the MIT License.\r\n\r\nOpen source licenses:";
             // 
             // label2
