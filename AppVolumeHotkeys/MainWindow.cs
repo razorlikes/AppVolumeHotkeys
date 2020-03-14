@@ -42,20 +42,32 @@ namespace AppVolumeHotkeys
 
             var converter = new KeysConverter();
 
-            if (VolUpModifier != Keys.None)
-                tbxVolUpHotkey.Text = converter.ConvertToString(VolUpModifier + " + " + VolUpHotkey);
-            else if (VolUpModifier == Keys.None)
-                tbxVolUpHotkey.Text = converter.ConvertToString(VolUpHotkey);
+            tbxVolUpHotkey.Clear();
+            if (((int)VolUpModifier & 1) != 0)
+                tbxVolUpHotkey.AppendText("ALT+");
+            if (((int)VolUpModifier & 2) != 0)
+                tbxVolUpHotkey.AppendText("CTRL+");
+            if (((int)VolUpModifier & 4) != 0)
+                tbxVolUpHotkey.AppendText("SHIFT+");
+            tbxVolUpHotkey.AppendText(converter.ConvertToString(VolUpHotkey));
 
-            if (VolDownModifier != Keys.None)
-                tbxVolDownHotkey.Text = converter.ConvertToString(VolDownModifier + " + " + VolDownHotkey);
-            else if (VolDownModifier == Keys.None)
-                tbxVolDownHotkey.Text = converter.ConvertToString(VolDownHotkey);
+            tbxVolDownHotkey.Clear();
+            if (((int)VolDownModifier & 1) != 0)
+                tbxVolDownHotkey.AppendText("ALT+");
+            if (((int)VolDownModifier & 2) != 0)
+                tbxVolDownHotkey.AppendText("CTRL+");
+            if (((int)VolDownModifier & 4) != 0)
+                tbxVolDownHotkey.AppendText("SHIFT+");
+            tbxVolDownHotkey.AppendText(converter.ConvertToString(VolDownHotkey));
 
-            if (MuteModifier != Keys.None)
-                tbxMuteHotkey.Text = converter.ConvertToString(MuteModifier + " + " + MuteHotkey);
-            else if (MuteModifier == Keys.None)
-                tbxMuteHotkey.Text = converter.ConvertToString(MuteHotkey);
+            tbxMuteHotkey.Clear();
+            if (((int)MuteModifier & 1) != 0)
+                tbxMuteHotkey.AppendText("ALT+");
+            if (((int)MuteModifier & 2) != 0)
+                tbxMuteHotkey.AppendText("CTRL+");
+            if (((int)MuteModifier & 4) != 0)
+                tbxMuteHotkey.AppendText("SHIFT+");
+            tbxMuteHotkey.AppendText(converter.ConvertToString(MuteHotkey));
 
             VolumeSteps = decimal.ToInt32(nudVolumeSteps.Value);
 
@@ -164,16 +176,24 @@ namespace AppVolumeHotkeys
             VolumeSteps = (int)nudVolumeSteps.Value;
         }
 
-        private void textBox_VolUpHotkey_KeyDown(object sender, KeyEventArgs e)
+        private void textBox_VolUpHotkey_KeyUp(object sender, KeyEventArgs e)
         {
-            Keys modifierKey = e.Modifiers;
-            Keys pressedKey = e.KeyData ^ modifierKey;
+            if (((int)(e.KeyData ^ e.Modifiers) == 16) || ((int)(e.KeyData ^ e.Modifiers) == 17) || ((int)(e.KeyData ^ e.Modifiers) == 18))
+                return;
 
             var converter = new KeysConverter();
-            tbxVolUpHotkey.Text = converter.ConvertToString(e.KeyData);
+            tbxVolUpHotkey.Text = converter.ConvertToString(e.KeyData).ToUpper();
 
-            VolUpModifier = modifierKey;
-            VolUpHotkey = pressedKey;
+            VolUpModifier = 0;
+
+            if (e.Alt)
+                VolUpModifier += 1;
+            if (e.Control)
+                VolUpModifier += 2;
+            if (e.Shift)
+                VolUpModifier += 4;
+
+            VolUpHotkey = e.KeyData ^ e.Modifiers;
 
             UnregisterHotKey(this.Handle, 1);
             RegisterHotKey(this.Handle, 1, (int)VolUpModifier, (int)VolUpHotkey);
@@ -181,16 +201,24 @@ namespace AppVolumeHotkeys
             lblAppVolume.Focus(); //dirty workaround to remove focus from textbox after setting hotkey
         }
 
-        private void textBox_VolDownHotkey_KeyDown(object sender, KeyEventArgs e)
+        private void textBox_VolDownHotkey_KeyUp(object sender, KeyEventArgs e)
         {
-            Keys modifierKey = e.Modifiers;
-            Keys pressedKey = e.KeyData ^ modifierKey;
+            if (((int)(e.KeyData ^ e.Modifiers) == 16) || ((int)(e.KeyData ^ e.Modifiers) == 17) || ((int)(e.KeyData ^ e.Modifiers) == 18))
+                return;
 
             var converter = new KeysConverter();
-            tbxVolDownHotkey.Text = converter.ConvertToString(e.KeyData);
+            tbxVolDownHotkey.Text = converter.ConvertToString(e.KeyData).ToUpper();
 
-            VolDownModifier = modifierKey;
-            VolDownHotkey = pressedKey;
+            VolDownModifier = 0;
+
+            if (e.Alt)
+                VolDownModifier += 1;
+            if (e.Control)
+                VolDownModifier += 2;
+            if (e.Shift)
+                VolDownModifier += 4;
+
+            VolDownHotkey = e.KeyData ^ e.Modifiers;
 
             UnregisterHotKey(this.Handle, 2);
             RegisterHotKey(this.Handle, 2, (int)VolDownModifier, (int)VolDownHotkey);
@@ -198,16 +226,24 @@ namespace AppVolumeHotkeys
             lblAppVolume.Focus(); //dirty workaround to remove focus from textbox after setting hotkey
         }
 
-        private void textBox_MuteHotkey_KeyDown(object sender, KeyEventArgs e)
+        private void textBox_MuteHotkey_KeyUp(object sender, KeyEventArgs e)
         {
-            Keys modifierKey = e.Modifiers;
-            Keys pressedKey = e.KeyData ^ modifierKey;
+            if (((int)(e.KeyData ^ e.Modifiers) == 16) || ((int)(e.KeyData ^ e.Modifiers) == 17) || ((int)(e.KeyData ^ e.Modifiers) == 18))
+                return;
 
             var converter = new KeysConverter();
-            tbxMuteHotkey.Text = converter.ConvertToString(e.KeyData);
+            tbxMuteHotkey.Text = converter.ConvertToString(e.KeyData).ToUpper();
 
-            MuteModifier = modifierKey;
-            MuteHotkey = pressedKey;
+            MuteModifier = 0;
+
+            if (e.Alt)
+                MuteModifier += 1;
+            if (e.Control)
+                MuteModifier += 2;
+            if (e.Shift)
+                MuteModifier += 4;
+
+            MuteHotkey = e.KeyData ^ e.Modifiers;
 
             UnregisterHotKey(this.Handle, 3);
             RegisterHotKey(this.Handle, 3, (int)MuteModifier, (int)MuteHotkey);
@@ -224,34 +260,22 @@ namespace AppVolumeHotkeys
             Properties.Settings.Default.MuteHotkey = MuteHotkey;
             Properties.Settings.Default.MuteModifier = MuteModifier;
             Properties.Settings.Default.Save();
-
-            var converter = new KeysConverter();
-            tbxVolUpHotkey.Text = converter.ConvertToString(Properties.Settings.Default.VolUpHotkey);
-            tbxVolDownHotkey.Text = converter.ConvertToString(Properties.Settings.Default.VolDownHotkey);
-            tbxMuteHotkey.Text = converter.ConvertToString(Properties.Settings.Default.MuteHotkey);
         }
 
         private void button_ResetHotkeys_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.VolUpHotkey = Keys.None;
-            Properties.Settings.Default.VolUpModifier = Keys.None;
-            Properties.Settings.Default.VolDownHotkey = Keys.None;
-            Properties.Settings.Default.VolDownModifier = Keys.None;
-            Properties.Settings.Default.MuteHotkey = Keys.None;
-            Properties.Settings.Default.MuteModifier = Keys.None;
-            Properties.Settings.Default.Save();
+            VolUpHotkey = Keys.None;
+            VolUpModifier = Keys.None;
+            VolDownHotkey = Keys.None;
+            VolDownModifier = Keys.None;
+            MuteHotkey = Keys.None;
+            MuteModifier = Keys.None;
 
-            var converter = new KeysConverter();
-            tbxVolUpHotkey.Text = converter.ConvertToString(Properties.Settings.Default.VolUpHotkey);
-            tbxVolDownHotkey.Text = converter.ConvertToString(Properties.Settings.Default.VolDownHotkey);
-            tbxMuteHotkey.Text = converter.ConvertToString(Properties.Settings.Default.MuteHotkey);
+            tbxVolUpHotkey.Text = "None";
+            tbxVolDownHotkey.Text = "None";
+            tbxMuteHotkey.Text = "None";
 
-            VolUpHotkey = Properties.Settings.Default.VolUpHotkey;
-            VolUpModifier = Properties.Settings.Default.VolUpModifier;
-            VolDownHotkey = Properties.Settings.Default.VolDownHotkey;
-            VolDownModifier = Properties.Settings.Default.VolDownModifier;
-            MuteHotkey = Properties.Settings.Default.MuteHotkey;
-            MuteModifier = Properties.Settings.Default.MuteModifier;
+            button_SaveHotkeys_Click(sender, e);
         }
 
         private void timer_Refresh_Tick(object sender, EventArgs e)

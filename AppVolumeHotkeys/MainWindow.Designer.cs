@@ -155,7 +155,7 @@
             this.tbxMuteHotkey.Size = new System.Drawing.Size(100, 20);
             this.tbxMuteHotkey.TabIndex = 14;
             this.tbxMuteHotkey.TabStop = false;
-            this.tbxMuteHotkey.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_MuteHotkey_KeyDown);
+            this.tbxMuteHotkey.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox_MuteHotkey_KeyUp);
             // 
             // btnResetHotkeys
             // 
@@ -207,7 +207,7 @@
             this.tbxVolDownHotkey.Size = new System.Drawing.Size(100, 20);
             this.tbxVolDownHotkey.TabIndex = 9;
             this.tbxVolDownHotkey.TabStop = false;
-            this.tbxVolDownHotkey.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_VolDownHotkey_KeyDown);
+            this.tbxVolDownHotkey.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox_VolDownHotkey_KeyUp);
             // 
             // tbxVolUpHotkey
             // 
@@ -220,7 +220,7 @@
             this.tbxVolUpHotkey.Size = new System.Drawing.Size(100, 20);
             this.tbxVolUpHotkey.TabIndex = 8;
             this.tbxVolUpHotkey.TabStop = false;
-            this.tbxVolUpHotkey.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_VolUpHotkey_KeyDown);
+            this.tbxVolUpHotkey.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox_VolUpHotkey_KeyUp);
             // 
             // nudVolumeSteps
             // 
