@@ -177,7 +177,6 @@
             this.tbxMuteHotkey.Size = new System.Drawing.Size(132, 22);
             this.tbxMuteHotkey.TabIndex = 14;
             this.tbxMuteHotkey.TabStop = false;
-            this.tbxMuteHotkey.TextChanged += new System.EventHandler(this.tbxMuteHotkey_TextChanged);
             this.tbxMuteHotkey.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox_MuteHotkey_KeyUp);
             // 
             // btnResetHotkeys
