@@ -7,7 +7,7 @@ namespace AppVolumeHotkeys
     public partial class MainWindow : Form
     {
         Keys VolUpHotkey, VolDownHotkey, VolUpModifier, VolDownModifier, MuteHotkey, MuteModifier;
-        int VolumeSteps, AppVolume;
+        int VolumeSteps, AppVolume, SoftMuteLevel;
         bool AppMute;
         bool AppSoftMute;
         bool isMutePressed;
@@ -38,9 +38,13 @@ namespace AppVolumeHotkeys
             MuteHotkey = Properties.Settings.Default.MuteHotkey;
             MuteModifier = Properties.Settings.Default.MuteModifier;
             VolumeSteps = Properties.Settings.Default.LastVolStep;
+            SoftMuteLevel = Properties.Settings.Default.SoftMuteLevel;
 
             if (VolumeSteps != 0)
                 nudVolumeSteps.Value = VolumeSteps;
+
+            if (SoftMuteLevel != 0)
+                nudSoftMuteLevel.Value = SoftMuteLevel;
 
             RegisterHotKey(this.Handle, 1, (int)VolUpModifier, (int)VolUpHotkey);
             RegisterHotKey(this.Handle, 2, (int)VolDownModifier, (int)VolDownHotkey);
@@ -181,7 +185,7 @@ namespace AppVolumeHotkeys
             }
             else
             {
-                volumeMixer.SetApplicationVolume(cmbAppName.SelectedIndex, (int)nudSoftMuteSteps.Value);
+                volumeMixer.SetApplicationVolume(cmbAppName.SelectedIndex, (int)nudSoftMuteLevel.Value);
             }
             AppSoftMute = !AppSoftMute;
         }
@@ -358,6 +362,16 @@ namespace AppVolumeHotkeys
             PTTMode = !PTTMode;
         }
 
+        private void nudSoftMuteLevel_ValueChanged(object sender, EventArgs e)
+        {
+            SoftMuteLevel = (int)nudSoftMuteLevel.Value;
+        }
+
+        private void nudSoftMuteLevel_KeyDown(object sender, KeyEventArgs e)
+        {
+            SoftMuteLevel = (int)nudSoftMuteLevel.Value;
+        }
+
         private void checkBox_SoftMute_CheckedChanged(object sender, EventArgs e)
         {
             SoftMute = !SoftMute;
@@ -391,6 +405,7 @@ namespace AppVolumeHotkeys
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             Properties.Settings.Default.LastVolStep = decimal.ToInt32(nudVolumeSteps.Value);
+            Properties.Settings.Default.SoftMuteLevel = decimal.ToInt32(nudSoftMuteLevel.Value);
             Properties.Settings.Default.LastEndpointName = cmbEndpoints.Text;
             Properties.Settings.Default.Save();
 

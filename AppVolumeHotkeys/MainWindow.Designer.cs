@@ -31,6 +31,9 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.groupBox_Settings = new System.Windows.Forms.GroupBox();
+            this.label_SoftMuteSteps = new System.Windows.Forms.Label();
+            this.nudSoftMuteLevel = new System.Windows.Forms.NumericUpDown();
+            this.checkBox_SoftMute = new System.Windows.Forms.CheckBox();
             this.checkBox_PTT = new System.Windows.Forms.CheckBox();
             this.btnEndpointsRefresh = new System.Windows.Forms.Button();
             this.cmbEndpoints = new System.Windows.Forms.ComboBox();
@@ -64,20 +67,17 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.itemExit = new System.Windows.Forms.ToolStripMenuItem();
             this.timer_ptt = new System.Windows.Forms.Timer(this.components);
-            this.checkBox_SoftMute = new System.Windows.Forms.CheckBox();
-            this.nudSoftMuteSteps = new System.Windows.Forms.NumericUpDown();
-            this.label_SoftMuteSteps = new System.Windows.Forms.Label();
             this.groupBox_Settings.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSoftMuteLevel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudVolumeSteps)).BeginInit();
             this.groupBox_Status.SuspendLayout();
             this.cmsTray.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSoftMuteSteps)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox_Settings
             // 
             this.groupBox_Settings.Controls.Add(this.label_SoftMuteSteps);
-            this.groupBox_Settings.Controls.Add(this.nudSoftMuteSteps);
+            this.groupBox_Settings.Controls.Add(this.nudSoftMuteLevel);
             this.groupBox_Settings.Controls.Add(this.checkBox_SoftMute);
             this.groupBox_Settings.Controls.Add(this.checkBox_PTT);
             this.groupBox_Settings.Controls.Add(this.btnEndpointsRefresh);
@@ -102,6 +102,50 @@
             this.groupBox_Settings.TabIndex = 2;
             this.groupBox_Settings.TabStop = false;
             this.groupBox_Settings.Text = "Settings";
+            // 
+            // label_SoftMuteSteps
+            // 
+            this.label_SoftMuteSteps.AutoSize = true;
+            this.label_SoftMuteSteps.Location = new System.Drawing.Point(158, 246);
+            this.label_SoftMuteSteps.Name = "label_SoftMuteSteps";
+            this.label_SoftMuteSteps.Size = new System.Drawing.Size(106, 17);
+            this.label_SoftMuteSteps.TabIndex = 24;
+            this.label_SoftMuteSteps.Text = "Soft Mute Level";
+            // 
+            // nudSoftMuteLevel
+            // 
+            this.nudSoftMuteLevel.Location = new System.Drawing.Point(107, 242);
+            this.nudSoftMuteLevel.Maximum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            0});
+            this.nudSoftMuteLevel.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudSoftMuteLevel.Name = "nudSoftMuteLevel";
+            this.nudSoftMuteLevel.Size = new System.Drawing.Size(44, 22);
+            this.nudSoftMuteLevel.TabIndex = 23;
+            this.nudSoftMuteLevel.Value = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.nudSoftMuteLevel.ValueChanged += new System.EventHandler(this.nudSoftMuteLevel_ValueChanged);
+            this.nudSoftMuteLevel.KeyDown += new System.Windows.Forms.KeyEventHandler(this.nudSoftMuteLevel_KeyDown);
+            // 
+            // checkBox_SoftMute
+            // 
+            this.checkBox_SoftMute.AutoSize = true;
+            this.checkBox_SoftMute.Location = new System.Drawing.Point(11, 242);
+            this.checkBox_SoftMute.Name = "checkBox_SoftMute";
+            this.checkBox_SoftMute.Size = new System.Drawing.Size(90, 21);
+            this.checkBox_SoftMute.TabIndex = 22;
+            this.checkBox_SoftMute.Text = "Soft Mute";
+            this.checkBox_SoftMute.UseVisualStyleBackColor = true;
+            this.checkBox_SoftMute.CheckedChanged += new System.EventHandler(this.checkBox_SoftMute_CheckedChanged);
             // 
             // checkBox_PTT
             // 
@@ -434,48 +478,6 @@
             // 
             this.timer_ptt.Tick += new System.EventHandler(this.timer_ptt_Tick);
             // 
-            // checkBox_SoftMute
-            // 
-            this.checkBox_SoftMute.AutoSize = true;
-            this.checkBox_SoftMute.Location = new System.Drawing.Point(11, 242);
-            this.checkBox_SoftMute.Name = "checkBox_SoftMute";
-            this.checkBox_SoftMute.Size = new System.Drawing.Size(90, 21);
-            this.checkBox_SoftMute.TabIndex = 22;
-            this.checkBox_SoftMute.Text = "Soft Mute";
-            this.checkBox_SoftMute.UseVisualStyleBackColor = true;
-            this.checkBox_SoftMute.CheckedChanged += new System.EventHandler(this.checkBox_SoftMute_CheckedChanged);
-            // 
-            // nudSoftMuteSteps
-            // 
-            this.nudSoftMuteSteps.Location = new System.Drawing.Point(107, 242);
-            this.nudSoftMuteSteps.Maximum = new decimal(new int[] {
-            99,
-            0,
-            0,
-            0});
-            this.nudSoftMuteSteps.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudSoftMuteSteps.Name = "nudSoftMuteSteps";
-            this.nudSoftMuteSteps.Size = new System.Drawing.Size(44, 22);
-            this.nudSoftMuteSteps.TabIndex = 23;
-            this.nudSoftMuteSteps.Value = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-            // 
-            // label_SoftMuteSteps
-            // 
-            this.label_SoftMuteSteps.AutoSize = true;
-            this.label_SoftMuteSteps.Location = new System.Drawing.Point(158, 246);
-            this.label_SoftMuteSteps.Name = "label_SoftMuteSteps";
-            this.label_SoftMuteSteps.Size = new System.Drawing.Size(106, 17);
-            this.label_SoftMuteSteps.TabIndex = 24;
-            this.label_SoftMuteSteps.Text = "Soft Mute Level";
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -498,11 +500,11 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
             this.groupBox_Settings.ResumeLayout(false);
             this.groupBox_Settings.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSoftMuteLevel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudVolumeSteps)).EndInit();
             this.groupBox_Status.ResumeLayout(false);
             this.groupBox_Status.PerformLayout();
             this.cmsTray.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.nudSoftMuteSteps)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -544,7 +546,7 @@
         private System.Windows.Forms.CheckBox checkBox_PTT;
         private System.Windows.Forms.CheckBox checkBox_SoftMute;
         private System.Windows.Forms.Label label_SoftMuteSteps;
-        private System.Windows.Forms.NumericUpDown nudSoftMuteSteps;
+        private System.Windows.Forms.NumericUpDown nudSoftMuteLevel;
     }
 }
 

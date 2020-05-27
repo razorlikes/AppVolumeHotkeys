@@ -130,5 +130,17 @@ namespace AppVolumeHotkeys.Properties {
                 this["LastEndpointName"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("15")]
+        public int SoftMuteLevel {
+            get {
+                return ((int)(this["SoftMuteLevel"]));
+            }
+            set {
+                this["SoftMuteLevel"] = value;
+            }
+        }
     }
 }
