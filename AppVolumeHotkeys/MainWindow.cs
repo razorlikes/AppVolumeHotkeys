@@ -9,8 +9,10 @@ namespace AppVolumeHotkeys
         Keys VolUpHotkey, VolDownHotkey, VolUpModifier, VolDownModifier, MuteHotkey, MuteModifier;
         int VolumeSteps, AppVolume;
         bool AppMute;
+        bool AppSoftMute;
         bool isMutePressed;
         bool PTTMode = false;
+        bool SoftMute = false;
 
         VolumeMixer volumeMixer;
 
@@ -113,20 +115,31 @@ namespace AppVolumeHotkeys
                 {
                     if (!isMutePressed)
                     {
-                        ToggleMute();
+                        DecideToggle();
                         isMutePressed = true;
                         timer_ptt.Enabled = true;
                     }
                 }
                 else
                 {
-                    ToggleMute();
+                    DecideToggle();
                 }
 
 
             base.WndProc(ref m);
         }
 
+        private void DecideToggle()
+        {
+            if (SoftMute)
+            {
+                ToggleSoftMute();
+            }
+            else
+            {
+                ToggleMute();
+            }
+        }
         private void btnAppNameRefresh_Click(object sender, EventArgs e)
         {
             cmbAppName.DataSource = volumeMixer.GetSessionNames();
@@ -159,6 +172,18 @@ namespace AppVolumeHotkeys
         {
             volumeMixer.SetApplicationVolume(cmbAppName.SelectedIndex, AppVolume - VolumeSteps);
             WriteVolumeLabel();
+        }
+        public void ToggleSoftMute()
+        {
+            if (AppSoftMute)
+            {
+                volumeMixer.SetApplicationVolume(cmbAppName.SelectedIndex, 100);
+            }
+            else
+            {
+                volumeMixer.SetApplicationVolume(cmbAppName.SelectedIndex, 20);
+            }
+            AppSoftMute = !AppSoftMute;
         }
 
         public void ToggleMute()
@@ -322,7 +347,7 @@ namespace AppVolumeHotkeys
         {
             if ((GetAsyncKeyState(MuteHotkey) & 0x8000) == 0)
             {
-                ToggleMute();
+                DecideToggle();
                 isMutePressed = false;
                 timer_ptt.Enabled = false;
             }
@@ -331,6 +356,11 @@ namespace AppVolumeHotkeys
         private void checkBox_PTT_CheckedChanged(object sender, EventArgs e)
         {
             PTTMode = !PTTMode;
+        }
+
+        private void checkBox_SoftMute_CheckedChanged(object sender, EventArgs e)
+        {
+            SoftMute = !SoftMute;
         }
 
         private void itemVolUp_Click(object sender, EventArgs e)
@@ -345,7 +375,7 @@ namespace AppVolumeHotkeys
 
         private void itemMute_Click(object sender, EventArgs e)
         {
-            ToggleMute();
+            DecideToggle();
         }
 
         private void itemAbout_Click(object sender, EventArgs e)

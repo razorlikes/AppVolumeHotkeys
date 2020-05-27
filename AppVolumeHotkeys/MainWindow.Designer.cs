@@ -64,6 +64,7 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.itemExit = new System.Windows.Forms.ToolStripMenuItem();
             this.timer_ptt = new System.Windows.Forms.Timer(this.components);
+            this.checkBox_SoftMute = new System.Windows.Forms.CheckBox();
             this.groupBox_Settings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudVolumeSteps)).BeginInit();
             this.groupBox_Status.SuspendLayout();
@@ -72,6 +73,7 @@
             // 
             // groupBox_Settings
             // 
+            this.groupBox_Settings.Controls.Add(this.checkBox_SoftMute);
             this.groupBox_Settings.Controls.Add(this.checkBox_PTT);
             this.groupBox_Settings.Controls.Add(this.btnEndpointsRefresh);
             this.groupBox_Settings.Controls.Add(this.cmbEndpoints);
@@ -91,7 +93,7 @@
             this.groupBox_Settings.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox_Settings.Name = "groupBox_Settings";
             this.groupBox_Settings.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox_Settings.Size = new System.Drawing.Size(276, 291);
+            this.groupBox_Settings.Size = new System.Drawing.Size(276, 328);
             this.groupBox_Settings.TabIndex = 2;
             this.groupBox_Settings.TabStop = false;
             this.groupBox_Settings.Text = "Settings";
@@ -181,7 +183,7 @@
             // 
             // btnResetHotkeys
             // 
-            this.btnResetHotkeys.Location = new System.Drawing.Point(143, 253);
+            this.btnResetHotkeys.Location = new System.Drawing.Point(143, 288);
             this.btnResetHotkeys.Margin = new System.Windows.Forms.Padding(4);
             this.btnResetHotkeys.Name = "btnResetHotkeys";
             this.btnResetHotkeys.Size = new System.Drawing.Size(125, 28);
@@ -193,7 +195,7 @@
             // 
             // btnSaveHotkeys
             // 
-            this.btnSaveHotkeys.Location = new System.Drawing.Point(8, 253);
+            this.btnSaveHotkeys.Location = new System.Drawing.Point(8, 288);
             this.btnSaveHotkeys.Margin = new System.Windows.Forms.Padding(4);
             this.btnSaveHotkeys.Name = "btnSaveHotkeys";
             this.btnSaveHotkeys.Size = new System.Drawing.Size(125, 28);
@@ -327,7 +329,7 @@
             this.groupBox_Status.Controls.Add(this.label_Description8);
             this.groupBox_Status.Controls.Add(this.lblAppVolume);
             this.groupBox_Status.Controls.Add(this.lblAppMute);
-            this.groupBox_Status.Location = new System.Drawing.Point(16, 314);
+            this.groupBox_Status.Location = new System.Drawing.Point(16, 351);
             this.groupBox_Status.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox_Status.Name = "groupBox_Status";
             this.groupBox_Status.Padding = new System.Windows.Forms.Padding(4);
@@ -427,13 +429,24 @@
             // 
             this.timer_ptt.Tick += new System.EventHandler(this.timer_ptt_Tick);
             // 
+            // checkBox_SoftMute
+            // 
+            this.checkBox_SoftMute.AutoSize = true;
+            this.checkBox_SoftMute.Location = new System.Drawing.Point(11, 242);
+            this.checkBox_SoftMute.Name = "checkBox_SoftMute";
+            this.checkBox_SoftMute.Size = new System.Drawing.Size(90, 21);
+            this.checkBox_SoftMute.TabIndex = 22;
+            this.checkBox_SoftMute.Text = "Soft Mute";
+            this.checkBox_SoftMute.UseVisualStyleBackColor = true;
+            this.checkBox_SoftMute.CheckedChanged += new System.EventHandler(this.checkBox_SoftMute_CheckedChanged);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(304, 392);
+            this.ClientSize = new System.Drawing.Size(303, 462);
             this.Controls.Add(this.groupBox_Status);
             this.Controls.Add(this.groupBox_Settings);
             this.Cursor = System.Windows.Forms.Cursors.Default;
@@ -492,6 +505,7 @@
         private System.Windows.Forms.ComboBox cmbEndpoints;
         private System.Windows.Forms.Timer timer_ptt;
         private System.Windows.Forms.CheckBox checkBox_PTT;
+        private System.Windows.Forms.CheckBox checkBox_SoftMute;
     }
 }
 
