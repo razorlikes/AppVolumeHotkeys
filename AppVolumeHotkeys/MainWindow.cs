@@ -117,11 +117,12 @@ namespace AppVolumeHotkeys
                         isMutePressed = true;
                         timer_ptt.Enabled = true;
                     }
-                } else
+                }
+                else
                 {
                     ToggleMute();
                 }
-                
+
 
             base.WndProc(ref m);
         }

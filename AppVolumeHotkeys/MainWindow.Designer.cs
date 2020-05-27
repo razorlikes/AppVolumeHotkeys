@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.groupBox_Settings = new System.Windows.Forms.GroupBox();
+            this.checkBox_PTT = new System.Windows.Forms.CheckBox();
             this.btnEndpointsRefresh = new System.Windows.Forms.Button();
             this.cmbEndpoints = new System.Windows.Forms.ComboBox();
             this.btnAppNameRefresh = new System.Windows.Forms.Button();
@@ -63,7 +64,6 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.itemExit = new System.Windows.Forms.ToolStripMenuItem();
             this.timer_ptt = new System.Windows.Forms.Timer(this.components);
-            this.checkBox_PTT = new System.Windows.Forms.CheckBox();
             this.groupBox_Settings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudVolumeSteps)).BeginInit();
             this.groupBox_Status.SuspendLayout();
@@ -88,19 +88,30 @@
             this.groupBox_Settings.Controls.Add(this.nudVolumeSteps);
             this.groupBox_Settings.Controls.Add(this.label_Description3);
             this.groupBox_Settings.Location = new System.Drawing.Point(16, 15);
-            this.groupBox_Settings.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox_Settings.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox_Settings.Name = "groupBox_Settings";
-            this.groupBox_Settings.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox_Settings.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox_Settings.Size = new System.Drawing.Size(276, 291);
             this.groupBox_Settings.TabIndex = 2;
             this.groupBox_Settings.TabStop = false;
             this.groupBox_Settings.Text = "Settings";
             // 
+            // checkBox_PTT
+            // 
+            this.checkBox_PTT.AutoSize = true;
+            this.checkBox_PTT.Location = new System.Drawing.Point(11, 215);
+            this.checkBox_PTT.Name = "checkBox_PTT";
+            this.checkBox_PTT.Size = new System.Drawing.Size(96, 21);
+            this.checkBox_PTT.TabIndex = 21;
+            this.checkBox_PTT.Text = "PTT Mode";
+            this.checkBox_PTT.UseVisualStyleBackColor = true;
+            this.checkBox_PTT.CheckedChanged += new System.EventHandler(this.checkBox_PTT_CheckedChanged);
+            // 
             // btnEndpointsRefresh
             // 
             this.btnEndpointsRefresh.Font = new System.Drawing.Font("Wingdings 3", 9F, System.Drawing.FontStyle.Bold);
             this.btnEndpointsRefresh.Location = new System.Drawing.Point(237, 22);
-            this.btnEndpointsRefresh.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnEndpointsRefresh.Margin = new System.Windows.Forms.Padding(4);
             this.btnEndpointsRefresh.Name = "btnEndpointsRefresh";
             this.btnEndpointsRefresh.Size = new System.Drawing.Size(31, 28);
             this.btnEndpointsRefresh.TabIndex = 20;
@@ -114,7 +125,7 @@
             this.cmbEndpoints.DropDownWidth = 206;
             this.cmbEndpoints.FormattingEnabled = true;
             this.cmbEndpoints.Location = new System.Drawing.Point(8, 23);
-            this.cmbEndpoints.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmbEndpoints.Margin = new System.Windows.Forms.Padding(4);
             this.cmbEndpoints.Name = "cmbEndpoints";
             this.cmbEndpoints.Size = new System.Drawing.Size(220, 24);
             this.cmbEndpoints.TabIndex = 19;
@@ -125,7 +136,7 @@
             // 
             this.btnAppNameRefresh.Font = new System.Drawing.Font("Wingdings 3", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.btnAppNameRefresh.Location = new System.Drawing.Point(237, 53);
-            this.btnAppNameRefresh.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAppNameRefresh.Margin = new System.Windows.Forms.Padding(4);
             this.btnAppNameRefresh.Name = "btnAppNameRefresh";
             this.btnAppNameRefresh.Size = new System.Drawing.Size(31, 28);
             this.btnAppNameRefresh.TabIndex = 1;
@@ -139,7 +150,7 @@
             this.cmbAppName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbAppName.FormattingEnabled = true;
             this.cmbAppName.Location = new System.Drawing.Point(8, 54);
-            this.cmbAppName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmbAppName.Margin = new System.Windows.Forms.Padding(4);
             this.cmbAppName.Name = "cmbAppName";
             this.cmbAppName.Size = new System.Drawing.Size(220, 24);
             this.cmbAppName.TabIndex = 18;
@@ -160,18 +171,19 @@
             // 
             this.tbxMuteHotkey.Cursor = System.Windows.Forms.Cursors.Hand;
             this.tbxMuteHotkey.Location = new System.Drawing.Point(8, 185);
-            this.tbxMuteHotkey.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbxMuteHotkey.Margin = new System.Windows.Forms.Padding(4);
             this.tbxMuteHotkey.Name = "tbxMuteHotkey";
             this.tbxMuteHotkey.ReadOnly = true;
             this.tbxMuteHotkey.Size = new System.Drawing.Size(132, 22);
             this.tbxMuteHotkey.TabIndex = 14;
             this.tbxMuteHotkey.TabStop = false;
+            this.tbxMuteHotkey.TextChanged += new System.EventHandler(this.tbxMuteHotkey_TextChanged);
             this.tbxMuteHotkey.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox_MuteHotkey_KeyUp);
             // 
             // btnResetHotkeys
             // 
             this.btnResetHotkeys.Location = new System.Drawing.Point(143, 253);
-            this.btnResetHotkeys.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnResetHotkeys.Margin = new System.Windows.Forms.Padding(4);
             this.btnResetHotkeys.Name = "btnResetHotkeys";
             this.btnResetHotkeys.Size = new System.Drawing.Size(125, 28);
             this.btnResetHotkeys.TabIndex = 13;
@@ -183,7 +195,7 @@
             // btnSaveHotkeys
             // 
             this.btnSaveHotkeys.Location = new System.Drawing.Point(8, 253);
-            this.btnSaveHotkeys.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSaveHotkeys.Margin = new System.Windows.Forms.Padding(4);
             this.btnSaveHotkeys.Name = "btnSaveHotkeys";
             this.btnSaveHotkeys.Size = new System.Drawing.Size(125, 28);
             this.btnSaveHotkeys.TabIndex = 12;
@@ -216,7 +228,7 @@
             // 
             this.tbxVolDownHotkey.Cursor = System.Windows.Forms.Cursors.Hand;
             this.tbxVolDownHotkey.Location = new System.Drawing.Point(8, 153);
-            this.tbxVolDownHotkey.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbxVolDownHotkey.Margin = new System.Windows.Forms.Padding(4);
             this.tbxVolDownHotkey.MaxLength = 0;
             this.tbxVolDownHotkey.Name = "tbxVolDownHotkey";
             this.tbxVolDownHotkey.ReadOnly = true;
@@ -230,7 +242,7 @@
             this.tbxVolUpHotkey.BackColor = System.Drawing.SystemColors.Control;
             this.tbxVolUpHotkey.Cursor = System.Windows.Forms.Cursors.Hand;
             this.tbxVolUpHotkey.Location = new System.Drawing.Point(8, 121);
-            this.tbxVolUpHotkey.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbxVolUpHotkey.Margin = new System.Windows.Forms.Padding(4);
             this.tbxVolUpHotkey.MaxLength = 0;
             this.tbxVolUpHotkey.Name = "tbxVolUpHotkey";
             this.tbxVolUpHotkey.ReadOnly = true;
@@ -242,7 +254,7 @@
             // nudVolumeSteps
             // 
             this.nudVolumeSteps.Location = new System.Drawing.Point(8, 89);
-            this.nudVolumeSteps.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nudVolumeSteps.Margin = new System.Windows.Forms.Padding(4);
             this.nudVolumeSteps.Name = "nudVolumeSteps";
             this.nudVolumeSteps.Size = new System.Drawing.Size(52, 22);
             this.nudVolumeSteps.TabIndex = 6;
@@ -317,9 +329,9 @@
             this.groupBox_Status.Controls.Add(this.lblAppVolume);
             this.groupBox_Status.Controls.Add(this.lblAppMute);
             this.groupBox_Status.Location = new System.Drawing.Point(16, 314);
-            this.groupBox_Status.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox_Status.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox_Status.Name = "groupBox_Status";
-            this.groupBox_Status.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox_Status.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox_Status.Size = new System.Drawing.Size(276, 47);
             this.groupBox_Status.TabIndex = 9;
             this.groupBox_Status.TabStop = false;
@@ -416,17 +428,6 @@
             // 
             this.timer_ptt.Tick += new System.EventHandler(this.timer_ptt_Tick);
             // 
-            // checkBox_PTT
-            // 
-            this.checkBox_PTT.AutoSize = true;
-            this.checkBox_PTT.Location = new System.Drawing.Point(11, 215);
-            this.checkBox_PTT.Name = "checkBox_PTT";
-            this.checkBox_PTT.Size = new System.Drawing.Size(96, 21);
-            this.checkBox_PTT.TabIndex = 21;
-            this.checkBox_PTT.Text = "PTT Mode";
-            this.checkBox_PTT.UseVisualStyleBackColor = true;
-            this.checkBox_PTT.CheckedChanged += new System.EventHandler(this.checkBox_PTT_CheckedChanged);
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -440,7 +441,7 @@
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MainWindow";
