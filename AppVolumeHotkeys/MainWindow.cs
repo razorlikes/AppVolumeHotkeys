@@ -9,6 +9,7 @@ namespace AppVolumeHotkeys
         Keys VolUpHotkey, VolDownHotkey, VolUpModifier, VolDownModifier, MuteHotkey, MuteModifier;
         int VolumeSteps, AppVolume;
         bool AppMute;
+        bool isMutePressed;
 
         VolumeMixer volumeMixer;
 
@@ -16,6 +17,8 @@ namespace AppVolumeHotkeys
         private static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vk);
         [DllImport("user32.dll")]
         private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+        [DllImport("user32.dll")]
+        public static extern short GetAsyncKeyState(Keys vKey);
 
         const int WM_HOTKEY = 0x0312;
 
@@ -105,7 +108,12 @@ namespace AppVolumeHotkeys
                 VolumeDown();
 
             if (m.Msg == WM_HOTKEY && (int)m.WParam == 3)
-                ToggleMute();
+                if (!isMutePressed)
+                {
+                    ToggleMute();
+                    isMutePressed = true;
+                    timer_ptt.Enabled = true;
+                }
 
             base.WndProc(ref m);
         }
@@ -299,6 +307,16 @@ namespace AppVolumeHotkeys
         private void itemOpen_Click(object sender, EventArgs e)
         {
             this.Show();
+        }
+
+        private void timer_ptt_Tick(object sender, EventArgs e)
+        {
+            if ((GetAsyncKeyState(MuteHotkey) & 0x8000) == 0)
+            {
+                ToggleMute();
+                isMutePressed = false;
+                timer_ptt.Enabled = false;
+            }
         }
 
         private void itemVolUp_Click(object sender, EventArgs e)
