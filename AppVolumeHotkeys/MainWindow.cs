@@ -181,7 +181,7 @@ namespace AppVolumeHotkeys
             }
             else
             {
-                volumeMixer.SetApplicationVolume(cmbAppName.SelectedIndex, 20);
+                volumeMixer.SetApplicationVolume(cmbAppName.SelectedIndex, (int)nudSoftMuteSteps.Value);
             }
             AppSoftMute = !AppSoftMute;
         }
