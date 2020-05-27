@@ -63,6 +63,7 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.itemExit = new System.Windows.Forms.ToolStripMenuItem();
             this.timer_ptt = new System.Windows.Forms.Timer(this.components);
+            this.checkBox_PTT = new System.Windows.Forms.CheckBox();
             this.groupBox_Settings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudVolumeSteps)).BeginInit();
             this.groupBox_Status.SuspendLayout();
@@ -71,6 +72,7 @@
             // 
             // groupBox_Settings
             // 
+            this.groupBox_Settings.Controls.Add(this.checkBox_PTT);
             this.groupBox_Settings.Controls.Add(this.btnEndpointsRefresh);
             this.groupBox_Settings.Controls.Add(this.cmbEndpoints);
             this.groupBox_Settings.Controls.Add(this.btnAppNameRefresh);
@@ -89,7 +91,7 @@
             this.groupBox_Settings.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox_Settings.Name = "groupBox_Settings";
             this.groupBox_Settings.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.groupBox_Settings.Size = new System.Drawing.Size(276, 255);
+            this.groupBox_Settings.Size = new System.Drawing.Size(276, 291);
             this.groupBox_Settings.TabIndex = 2;
             this.groupBox_Settings.TabStop = false;
             this.groupBox_Settings.Text = "Settings";
@@ -168,7 +170,7 @@
             // 
             // btnResetHotkeys
             // 
-            this.btnResetHotkeys.Location = new System.Drawing.Point(143, 217);
+            this.btnResetHotkeys.Location = new System.Drawing.Point(143, 253);
             this.btnResetHotkeys.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnResetHotkeys.Name = "btnResetHotkeys";
             this.btnResetHotkeys.Size = new System.Drawing.Size(125, 28);
@@ -180,7 +182,7 @@
             // 
             // btnSaveHotkeys
             // 
-            this.btnSaveHotkeys.Location = new System.Drawing.Point(8, 217);
+            this.btnSaveHotkeys.Location = new System.Drawing.Point(8, 253);
             this.btnSaveHotkeys.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnSaveHotkeys.Name = "btnSaveHotkeys";
             this.btnSaveHotkeys.Size = new System.Drawing.Size(125, 28);
@@ -314,7 +316,7 @@
             this.groupBox_Status.Controls.Add(this.label_Description8);
             this.groupBox_Status.Controls.Add(this.lblAppVolume);
             this.groupBox_Status.Controls.Add(this.lblAppMute);
-            this.groupBox_Status.Location = new System.Drawing.Point(16, 277);
+            this.groupBox_Status.Location = new System.Drawing.Point(16, 314);
             this.groupBox_Status.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox_Status.Name = "groupBox_Status";
             this.groupBox_Status.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -414,13 +416,24 @@
             // 
             this.timer_ptt.Tick += new System.EventHandler(this.timer_ptt_Tick);
             // 
+            // checkBox_PTT
+            // 
+            this.checkBox_PTT.AutoSize = true;
+            this.checkBox_PTT.Location = new System.Drawing.Point(11, 215);
+            this.checkBox_PTT.Name = "checkBox_PTT";
+            this.checkBox_PTT.Size = new System.Drawing.Size(96, 21);
+            this.checkBox_PTT.TabIndex = 21;
+            this.checkBox_PTT.Text = "PTT Mode";
+            this.checkBox_PTT.UseVisualStyleBackColor = true;
+            this.checkBox_PTT.CheckedChanged += new System.EventHandler(this.checkBox_PTT_CheckedChanged);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(308, 338);
+            this.ClientSize = new System.Drawing.Size(304, 392);
             this.Controls.Add(this.groupBox_Status);
             this.Controls.Add(this.groupBox_Settings);
             this.Cursor = System.Windows.Forms.Cursors.Default;
@@ -478,6 +491,7 @@
         private System.Windows.Forms.Button btnEndpointsRefresh;
         private System.Windows.Forms.ComboBox cmbEndpoints;
         private System.Windows.Forms.Timer timer_ptt;
+        private System.Windows.Forms.CheckBox checkBox_PTT;
     }
 }
 

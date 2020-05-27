@@ -10,6 +10,7 @@ namespace AppVolumeHotkeys
         int VolumeSteps, AppVolume;
         bool AppMute;
         bool isMutePressed;
+        bool PTTMode = false;
 
         VolumeMixer volumeMixer;
 
@@ -108,12 +109,19 @@ namespace AppVolumeHotkeys
                 VolumeDown();
 
             if (m.Msg == WM_HOTKEY && (int)m.WParam == 3)
-                if (!isMutePressed)
+                if (PTTMode)
+                {
+                    if (!isMutePressed)
+                    {
+                        ToggleMute();
+                        isMutePressed = true;
+                        timer_ptt.Enabled = true;
+                    }
+                } else
                 {
                     ToggleMute();
-                    isMutePressed = true;
-                    timer_ptt.Enabled = true;
                 }
+                
 
             base.WndProc(ref m);
         }
@@ -317,6 +325,11 @@ namespace AppVolumeHotkeys
                 isMutePressed = false;
                 timer_ptt.Enabled = false;
             }
+        }
+
+        private void checkBox_PTT_CheckedChanged(object sender, EventArgs e)
+        {
+            PTTMode = !PTTMode;
         }
 
         private void itemVolUp_Click(object sender, EventArgs e)
