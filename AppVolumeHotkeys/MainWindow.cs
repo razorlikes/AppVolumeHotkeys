@@ -7,8 +7,12 @@ namespace AppVolumeHotkeys
     public partial class MainWindow : Form
     {
         Keys VolUpHotkey, VolDownHotkey, VolUpModifier, VolDownModifier, MuteHotkey, MuteModifier;
-        int VolumeSteps, AppVolume;
+        int VolumeSteps, AppVolume, SoftMuteLevel;
         bool AppMute;
+        bool AppSoftMute;
+        bool isMutePressed;
+        bool PTTMode = false;
+        bool SoftMute = false;
 
         VolumeMixer volumeMixer;
 
@@ -16,6 +20,8 @@ namespace AppVolumeHotkeys
         private static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vk);
         [DllImport("user32.dll")]
         private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+        [DllImport("user32.dll")]
+        public static extern short GetAsyncKeyState(Keys vKey);
 
         const int WM_HOTKEY = 0x0312;
 
@@ -32,9 +38,13 @@ namespace AppVolumeHotkeys
             MuteHotkey = Properties.Settings.Default.MuteHotkey;
             MuteModifier = Properties.Settings.Default.MuteModifier;
             VolumeSteps = Properties.Settings.Default.LastVolStep;
+            SoftMuteLevel = Properties.Settings.Default.SoftMuteLevel;
 
             if (VolumeSteps != 0)
                 nudVolumeSteps.Value = VolumeSteps;
+
+            if (SoftMuteLevel != 0)
+                nudSoftMuteLevel.Value = SoftMuteLevel;
 
             RegisterHotKey(this.Handle, 1, (int)VolUpModifier, (int)VolUpHotkey);
             RegisterHotKey(this.Handle, 2, (int)VolDownModifier, (int)VolDownHotkey);
@@ -105,11 +115,35 @@ namespace AppVolumeHotkeys
                 VolumeDown();
 
             if (m.Msg == WM_HOTKEY && (int)m.WParam == 3)
-                ToggleMute();
+                if (PTTMode)
+                {
+                    if (!isMutePressed)
+                    {
+                        DecideToggle();
+                        isMutePressed = true;
+                        timer_ptt.Enabled = true;
+                    }
+                }
+                else
+                {
+                    DecideToggle();
+                }
+
 
             base.WndProc(ref m);
         }
 
+        private void DecideToggle()
+        {
+            if (SoftMute)
+            {
+                ToggleSoftMute();
+            }
+            else
+            {
+                ToggleMute();
+            }
+        }
         private void btnAppNameRefresh_Click(object sender, EventArgs e)
         {
             cmbAppName.DataSource = volumeMixer.GetSessionNames();
@@ -142,6 +176,18 @@ namespace AppVolumeHotkeys
         {
             volumeMixer.SetApplicationVolume(cmbAppName.SelectedIndex, AppVolume - VolumeSteps);
             WriteVolumeLabel();
+        }
+        public void ToggleSoftMute()
+        {
+            if (AppSoftMute)
+            {
+                volumeMixer.SetApplicationVolume(cmbAppName.SelectedIndex, 100);
+            }
+            else
+            {
+                volumeMixer.SetApplicationVolume(cmbAppName.SelectedIndex, (int)nudSoftMuteLevel.Value);
+            }
+            AppSoftMute = !AppSoftMute;
         }
 
         public void ToggleMute()
@@ -301,6 +347,36 @@ namespace AppVolumeHotkeys
             this.Show();
         }
 
+        private void timer_ptt_Tick(object sender, EventArgs e)
+        {
+            if ((GetAsyncKeyState(MuteHotkey) & 0x8000) == 0)
+            {
+                DecideToggle();
+                isMutePressed = false;
+                timer_ptt.Enabled = false;
+            }
+        }
+
+        private void checkBox_PTT_CheckedChanged(object sender, EventArgs e)
+        {
+            PTTMode = !PTTMode;
+        }
+
+        private void nudSoftMuteLevel_ValueChanged(object sender, EventArgs e)
+        {
+            SoftMuteLevel = (int)nudSoftMuteLevel.Value;
+        }
+
+        private void nudSoftMuteLevel_KeyDown(object sender, KeyEventArgs e)
+        {
+            SoftMuteLevel = (int)nudSoftMuteLevel.Value;
+        }
+
+        private void checkBox_SoftMute_CheckedChanged(object sender, EventArgs e)
+        {
+            SoftMute = !SoftMute;
+        }
+
         private void itemVolUp_Click(object sender, EventArgs e)
         {
             VolumeUp();
@@ -313,7 +389,7 @@ namespace AppVolumeHotkeys
 
         private void itemMute_Click(object sender, EventArgs e)
         {
-            ToggleMute();
+            DecideToggle();
         }
 
         private void itemAbout_Click(object sender, EventArgs e)
@@ -329,6 +405,7 @@ namespace AppVolumeHotkeys
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             Properties.Settings.Default.LastVolStep = decimal.ToInt32(nudVolumeSteps.Value);
+            Properties.Settings.Default.SoftMuteLevel = decimal.ToInt32(nudSoftMuteLevel.Value);
             Properties.Settings.Default.LastEndpointName = cmbEndpoints.Text;
             Properties.Settings.Default.Save();
 
