@@ -292,6 +292,7 @@ namespace AppVolumeHotkeys
             VolDownModifier = Keys.None;
             MuteHotkey = Keys.None;
             MuteModifier = Keys.None;
+            PTTHotkey = Keys.None;
 
             tbxVolUpHotkey.Text = "None";
             tbxVolDownHotkey.Text = "None";
