@@ -31,10 +31,10 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.groupBox_Settings = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tbxPTTHotkey = new System.Windows.Forms.TextBox();
             this.label_SoftMuteSteps = new System.Windows.Forms.Label();
             this.nudSoftMuteLevel = new System.Windows.Forms.NumericUpDown();
-            this.checkBox_SoftMute = new System.Windows.Forms.CheckBox();
-            this.checkBox_PTT = new System.Windows.Forms.CheckBox();
             this.btnEndpointsRefresh = new System.Windows.Forms.Button();
             this.cmbEndpoints = new System.Windows.Forms.ComboBox();
             this.btnAppNameRefresh = new System.Windows.Forms.Button();
@@ -76,10 +76,10 @@
             // 
             // groupBox_Settings
             // 
+            this.groupBox_Settings.Controls.Add(this.label1);
+            this.groupBox_Settings.Controls.Add(this.tbxPTTHotkey);
             this.groupBox_Settings.Controls.Add(this.label_SoftMuteSteps);
             this.groupBox_Settings.Controls.Add(this.nudSoftMuteLevel);
-            this.groupBox_Settings.Controls.Add(this.checkBox_SoftMute);
-            this.groupBox_Settings.Controls.Add(this.checkBox_PTT);
             this.groupBox_Settings.Controls.Add(this.btnEndpointsRefresh);
             this.groupBox_Settings.Controls.Add(this.cmbEndpoints);
             this.groupBox_Settings.Controls.Add(this.btnAppNameRefresh);
@@ -103,25 +103,42 @@
             this.groupBox_Settings.TabStop = false;
             this.groupBox_Settings.Text = "Settings";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(149, 220);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(83, 17);
+            this.label1.TabIndex = 26;
+            this.label1.Text = "PTT Hotkey";
+            // 
+            // tbxPTTHotkey
+            // 
+            this.tbxPTTHotkey.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.tbxPTTHotkey.Location = new System.Drawing.Point(8, 215);
+            this.tbxPTTHotkey.Margin = new System.Windows.Forms.Padding(4);
+            this.tbxPTTHotkey.Name = "tbxPTTHotkey";
+            this.tbxPTTHotkey.ReadOnly = true;
+            this.tbxPTTHotkey.Size = new System.Drawing.Size(132, 22);
+            this.tbxPTTHotkey.TabIndex = 25;
+            this.tbxPTTHotkey.TabStop = false;
+            this.tbxPTTHotkey.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbxPTTHotkey_KeyUp);
+            // 
             // label_SoftMuteSteps
             // 
             this.label_SoftMuteSteps.AutoSize = true;
-            this.label_SoftMuteSteps.Location = new System.Drawing.Point(158, 246);
+            this.label_SoftMuteSteps.Location = new System.Drawing.Point(58, 249);
             this.label_SoftMuteSteps.Name = "label_SoftMuteSteps";
-            this.label_SoftMuteSteps.Size = new System.Drawing.Size(106, 17);
+            this.label_SoftMuteSteps.Size = new System.Drawing.Size(73, 17);
             this.label_SoftMuteSteps.TabIndex = 24;
-            this.label_SoftMuteSteps.Text = "Soft Mute Level";
+            this.label_SoftMuteSteps.Text = "PTT Level";
             // 
             // nudSoftMuteLevel
             // 
-            this.nudSoftMuteLevel.Location = new System.Drawing.Point(107, 242);
+            this.nudSoftMuteLevel.Location = new System.Drawing.Point(8, 246);
             this.nudSoftMuteLevel.Maximum = new decimal(new int[] {
             99,
-            0,
-            0,
-            0});
-            this.nudSoftMuteLevel.Minimum = new decimal(new int[] {
-            1,
             0,
             0,
             0});
@@ -135,28 +152,6 @@
             0});
             this.nudSoftMuteLevel.ValueChanged += new System.EventHandler(this.nudSoftMuteLevel_ValueChanged);
             this.nudSoftMuteLevel.KeyDown += new System.Windows.Forms.KeyEventHandler(this.nudSoftMuteLevel_KeyDown);
-            // 
-            // checkBox_SoftMute
-            // 
-            this.checkBox_SoftMute.AutoSize = true;
-            this.checkBox_SoftMute.Location = new System.Drawing.Point(11, 242);
-            this.checkBox_SoftMute.Name = "checkBox_SoftMute";
-            this.checkBox_SoftMute.Size = new System.Drawing.Size(90, 21);
-            this.checkBox_SoftMute.TabIndex = 22;
-            this.checkBox_SoftMute.Text = "Soft Mute";
-            this.checkBox_SoftMute.UseVisualStyleBackColor = true;
-            this.checkBox_SoftMute.CheckedChanged += new System.EventHandler(this.checkBox_SoftMute_CheckedChanged);
-            // 
-            // checkBox_PTT
-            // 
-            this.checkBox_PTT.AutoSize = true;
-            this.checkBox_PTT.Location = new System.Drawing.Point(11, 215);
-            this.checkBox_PTT.Name = "checkBox_PTT";
-            this.checkBox_PTT.Size = new System.Drawing.Size(96, 21);
-            this.checkBox_PTT.TabIndex = 21;
-            this.checkBox_PTT.Text = "PTT Mode";
-            this.checkBox_PTT.UseVisualStyleBackColor = true;
-            this.checkBox_PTT.CheckedChanged += new System.EventHandler(this.checkBox_PTT_CheckedChanged);
             // 
             // btnEndpointsRefresh
             // 
@@ -476,6 +471,7 @@
             // 
             // timer_ptt
             // 
+            this.timer_ptt.Enabled = true;
             this.timer_ptt.Tick += new System.EventHandler(this.timer_ptt_Tick);
             // 
             // MainWindow
@@ -543,10 +539,10 @@
         private System.Windows.Forms.Button btnEndpointsRefresh;
         private System.Windows.Forms.ComboBox cmbEndpoints;
         private System.Windows.Forms.Timer timer_ptt;
-        private System.Windows.Forms.CheckBox checkBox_PTT;
-        private System.Windows.Forms.CheckBox checkBox_SoftMute;
         private System.Windows.Forms.Label label_SoftMuteSteps;
         private System.Windows.Forms.NumericUpDown nudSoftMuteLevel;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox tbxPTTHotkey;
     }
 }
 

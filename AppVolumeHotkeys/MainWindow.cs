@@ -6,12 +6,10 @@ namespace AppVolumeHotkeys
 {
     public partial class MainWindow : Form
     {
-        Keys VolUpHotkey, VolDownHotkey, VolUpModifier, VolDownModifier, MuteHotkey, MuteModifier;
+        Keys VolUpHotkey, VolDownHotkey, VolUpModifier, VolDownModifier, MuteHotkey, MuteModifier, PTTHotkey;
         int VolumeSteps, AppVolume, SoftMuteLevel;
         bool AppMute;
-        bool AppSoftMute;
-        bool isMutePressed;
-        bool PTTMode = false;
+        bool isPTTPressed = false;
         bool SoftMute = false;
 
         VolumeMixer volumeMixer;
@@ -39,6 +37,7 @@ namespace AppVolumeHotkeys
             MuteModifier = Properties.Settings.Default.MuteModifier;
             VolumeSteps = Properties.Settings.Default.LastVolStep;
             SoftMuteLevel = Properties.Settings.Default.SoftMuteLevel;
+            PTTHotkey = Properties.Settings.Default.PTTHotkey;
 
             if (VolumeSteps != 0)
                 nudVolumeSteps.Value = VolumeSteps;
@@ -79,6 +78,9 @@ namespace AppVolumeHotkeys
                 tbxMuteHotkey.AppendText("SHIFT+");
             tbxMuteHotkey.AppendText(converter.ConvertToString(MuteHotkey));
 
+            tbxPTTHotkey.Clear();
+            tbxPTTHotkey.AppendText(converter.ConvertToString(PTTHotkey));
+
             VolumeSteps = decimal.ToInt32(nudVolumeSteps.Value);
 
             volumeMixer = new VolumeMixer();
@@ -115,34 +117,11 @@ namespace AppVolumeHotkeys
                 VolumeDown();
 
             if (m.Msg == WM_HOTKEY && (int)m.WParam == 3)
-                if (PTTMode)
-                {
-                    if (!isMutePressed)
-                    {
-                        DecideToggle();
-                        isMutePressed = true;
-                        timer_ptt.Enabled = true;
-                    }
-                }
-                else
-                {
-                    DecideToggle();
-                }
-
-
-            base.WndProc(ref m);
-        }
-
-        private void DecideToggle()
-        {
-            if (SoftMute)
-            {
-                ToggleSoftMute();
-            }
-            else
             {
                 ToggleMute();
             }
+
+            base.WndProc(ref m);
         }
         private void btnAppNameRefresh_Click(object sender, EventArgs e)
         {
@@ -177,19 +156,6 @@ namespace AppVolumeHotkeys
             volumeMixer.SetApplicationVolume(cmbAppName.SelectedIndex, AppVolume - VolumeSteps);
             WriteVolumeLabel();
         }
-        public void ToggleSoftMute()
-        {
-            if (AppSoftMute)
-            {
-                volumeMixer.SetApplicationVolume(cmbAppName.SelectedIndex, 100);
-            }
-            else
-            {
-                volumeMixer.SetApplicationVolume(cmbAppName.SelectedIndex, (int)nudSoftMuteLevel.Value);
-            }
-            AppSoftMute = !AppSoftMute;
-        }
-
         public void ToggleMute()
         {
             if (AppMute == false)
@@ -296,6 +262,15 @@ namespace AppVolumeHotkeys
 
             lblAppVolume.Focus(); //dirty workaround to remove focus from textbox after setting hotkey
         }
+        private void tbxPTTHotkey_KeyUp(object sender, KeyEventArgs e)
+        {
+            var converter = new KeysConverter();
+            tbxPTTHotkey.Text = converter.ConvertToString(e.KeyData).ToUpper();
+
+            PTTHotkey = e.KeyData;
+
+            lblAppVolume.Focus(); //dirty workaround to remove focus from textbox after setting hotkey
+        }
 
         private void button_SaveHotkeys_Click(object sender, EventArgs e)
         {
@@ -305,6 +280,7 @@ namespace AppVolumeHotkeys
             Properties.Settings.Default.VolDownModifier = VolDownModifier;
             Properties.Settings.Default.MuteHotkey = MuteHotkey;
             Properties.Settings.Default.MuteModifier = MuteModifier;
+            Properties.Settings.Default.PTTHotkey = PTTHotkey;
             Properties.Settings.Default.Save();
         }
 
@@ -349,24 +325,22 @@ namespace AppVolumeHotkeys
 
         private void timer_ptt_Tick(object sender, EventArgs e)
         {
-            if ((GetAsyncKeyState(MuteHotkey) & 0x8000) == 0)
+            if ((GetAsyncKeyState(PTTHotkey) & 0x8000) != 0 && !isPTTPressed)
             {
-                DecideToggle();
-                isMutePressed = false;
-                timer_ptt.Enabled = false;
+                volumeMixer.SetApplicationVolume(cmbAppName.SelectedIndex, (int)nudSoftMuteLevel.Value);
+                isPTTPressed = true;
             }
-        }
+            if ((GetAsyncKeyState(PTTHotkey) & 0x8000) == 0)
+            {
+                isPTTPressed = false;
+                volumeMixer.SetApplicationVolume(cmbAppName.SelectedIndex, 100);
+            }
 
-        private void checkBox_PTT_CheckedChanged(object sender, EventArgs e)
-        {
-            PTTMode = !PTTMode;
         }
-
         private void nudSoftMuteLevel_ValueChanged(object sender, EventArgs e)
         {
             SoftMuteLevel = (int)nudSoftMuteLevel.Value;
         }
-
         private void nudSoftMuteLevel_KeyDown(object sender, KeyEventArgs e)
         {
             SoftMuteLevel = (int)nudSoftMuteLevel.Value;
@@ -389,7 +363,7 @@ namespace AppVolumeHotkeys
 
         private void itemMute_Click(object sender, EventArgs e)
         {
-            DecideToggle();
+            ToggleMute();
         }
 
         private void itemAbout_Click(object sender, EventArgs e)
