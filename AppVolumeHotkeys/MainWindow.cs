@@ -297,6 +297,7 @@ namespace AppVolumeHotkeys
             tbxVolUpHotkey.Text = "None";
             tbxVolDownHotkey.Text = "None";
             tbxMuteHotkey.Text = "None";
+            tbxPTTHotkey.Text = "None";
 
             button_SaveHotkeys_Click(sender, e);
         }
