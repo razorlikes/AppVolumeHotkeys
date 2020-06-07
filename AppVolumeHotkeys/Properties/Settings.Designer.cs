@@ -142,5 +142,17 @@ namespace AppVolumeHotkeys.Properties {
                 this["SoftMuteLevel"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("None")]
+        public global::System.Windows.Forms.Keys PTTHotkey {
+            get {
+                return ((global::System.Windows.Forms.Keys)(this["PTTHotkey"]));
+            }
+            set {
+                this["PTTHotkey"] = value;
+            }
+        }
     }
 }
