@@ -1,11 +1,15 @@
-﻿using CSCore.CoreAudioAPI;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Windows.Win32;
+using Windows.Win32.Media.Audio;
+using Windows.Win32.System.Com;
+using Windows.Win32.System.Com.StructuredStorage;
+using Windows.Win32.UI.Shell.PropertiesSystem;
 
 namespace AppVolumeHotkeys
 {
     class VolumeMixer
     {
-        AudioSessionEnumerator audioSessionEnumerator;
+        IAudioSessionEnumerator audioSessionEnumerator;
 
         public VolumeMixer()
         {
@@ -14,23 +18,41 @@ namespace AppVolumeHotkeys
 
         public List<string> GetEndpointNames()
         {
-            List<string> endpointNames = new List<string>();
+            IMMDeviceEnumerator deviceEnumerator;
+            PInvoke.CoCreateInstance<IMMDeviceEnumerator>(typeof(MMDeviceEnumerator).GUID, null, CLSCTX.CLSCTX_ALL, out deviceEnumerator);
 
-            foreach (MMDevice endpoint in MMDeviceEnumerator.EnumerateDevices(DataFlow.Render, DeviceState.Active))
+            IMMDeviceCollection deviceCollection;
+            deviceEnumerator.EnumAudioEndpoints(EDataFlow.eRender, DEVICE_STATE.DEVICE_STATE_ACTIVE, out deviceCollection);
+
+            List<string> endpointNames = [];
+
+            uint devCount = 0;
+            deviceCollection.GetCount(out devCount);
+            for (uint i = 0; i < devCount; i++)
             {
-                endpointNames.Add(endpoint.FriendlyName);
+                IMMDevice device;
+                deviceCollection.Item(i, out device);
+
+                IPropertyStore propertyStore;
+                device.OpenPropertyStore(STGM.STGM_READ, out propertyStore);
+
+                PROPVARIANT propVar;
+                propertyStore.GetValue(PInvoke.PKEY_Device_FriendlyName, out propVar);
+
+                endpointNames.Add(propVar.Anonymous.Anonymous.Anonymous.pwszVal.ToString());
             }
 
             return endpointNames;
         }
 
+        /* --FIXUP
         public List<string> GetSessionNames()
         {
             List<string> sessionNames = new List<string>();
 
-            foreach (AudioSessionControl session in audioSessionEnumerator)
+            foreach (IAudioSessionControl session in audioSessionEnumerator)
             {
-                AudioSessionControl2 sessionControl2 = session.QueryInterface<AudioSessionControl2>();
+                IAudioSessionControl2 sessionControl2 = session.QueryInterface<AudioSessionControl2>();
                 if (sessionControl2.DisplayName.ToLower().Contains("audiosrv.dll"))
                     sessionNames.Add("[System Sounds]");
                 else
@@ -42,7 +64,7 @@ namespace AppVolumeHotkeys
 
         public void SetEndpoint(int index)
         {
-            AudioSessionManager2 audioSessionManager = AudioSessionManager2.FromMMDevice(MMDeviceEnumerator.EnumerateDevices(DataFlow.Render, DeviceState.Active)[index]);
+            IAudioSessionManager2 audioSessionManager = IAudioSessionManager2.FromMMDevice(IMMDeviceEnumerator.EnumerateDevices(DataFlow.Render, DeviceState.Active)[index]);
             audioSessionEnumerator = audioSessionManager.GetSessionEnumerator();
         }
 
@@ -70,5 +92,6 @@ namespace AppVolumeHotkeys
         {
             audioSessionEnumerator.GetSession(index).QueryInterface<SimpleAudioVolume>().IsMuted = state;
         }
+        */
     }
 }

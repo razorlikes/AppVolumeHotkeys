@@ -8,150 +8,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AppVolumeHotkeys.Properties {
-    
-    
+namespace AppVolumeHotkeys.Properties
+{
+
+
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.5.0.0")]
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
-        
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "11.0.0.0")]
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase
+    {
+
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
-        
-        public static Settings Default {
-            get {
+
+        public static Settings Default
+        {
+            get
+            {
                 return defaultInstance;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("None")]
-        public global::System.Windows.Forms.Keys VolUpHotkey {
-            get {
-                return ((global::System.Windows.Forms.Keys)(this["VolUpHotkey"]));
-            }
-            set {
-                this["VolUpHotkey"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("None")]
-        public global::System.Windows.Forms.Keys VolDownHotkey {
-            get {
-                return ((global::System.Windows.Forms.Keys)(this["VolDownHotkey"]));
-            }
-            set {
-                this["VolDownHotkey"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("None")]
-        public global::System.Windows.Forms.Keys VolUpModifier {
-            get {
-                return ((global::System.Windows.Forms.Keys)(this["VolUpModifier"]));
-            }
-            set {
-                this["VolUpModifier"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("None")]
-        public global::System.Windows.Forms.Keys VolDownModifier {
-            get {
-                return ((global::System.Windows.Forms.Keys)(this["VolDownModifier"]));
-            }
-            set {
-                this["VolDownModifier"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("None")]
-        public global::System.Windows.Forms.Keys MuteHotkey {
-            get {
-                return ((global::System.Windows.Forms.Keys)(this["MuteHotkey"]));
-            }
-            set {
-                this["MuteHotkey"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("None")]
-        public global::System.Windows.Forms.Keys MuteModifier {
-            get {
-                return ((global::System.Windows.Forms.Keys)(this["MuteModifier"]));
-            }
-            set {
-                this["MuteModifier"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int LastVolStep {
-            get {
-                return ((int)(this["LastVolStep"]));
-            }
-            set {
-                this["LastVolStep"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool FirstNotification {
-            get {
-                return ((bool)(this["FirstNotification"]));
-            }
-            set {
-                this["FirstNotification"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string LastEndpointName {
-            get {
-                return ((string)(this["LastEndpointName"]));
-            }
-            set {
-                this["LastEndpointName"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("15")]
-        public int SoftMuteLevel {
-            get {
-                return ((int)(this["SoftMuteLevel"]));
-            }
-            set {
-                this["SoftMuteLevel"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("None")]
-        public global::System.Windows.Forms.Keys PTTHotkey {
-            get {
-                return ((global::System.Windows.Forms.Keys)(this["PTTHotkey"]));
-            }
-            set {
-                this["PTTHotkey"] = value;
             }
         }
     }

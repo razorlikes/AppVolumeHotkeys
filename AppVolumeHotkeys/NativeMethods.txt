@@ -1,0 +1,9 @@
+CoCreateInstance
+IMMDevice
+IMMDeviceEnumerator
+MMDeviceEnumerator
+IAudioSessionControl
+IAudioSessionControl2
+IAudioSessionEnumerator
+IAudioSessionManager2
+PKEY_Device_FriendlyName
