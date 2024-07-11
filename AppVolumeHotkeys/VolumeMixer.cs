@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using Windows.Win32;
 using Windows.Win32.Media.Audio;
 using Windows.Win32.System.Com;
@@ -10,6 +11,7 @@ namespace AppVolumeHotkeys
     class VolumeMixer
     {
         IAudioSessionEnumerator audioSessionEnumerator;
+        IMMDeviceCollection deviceCollection;
 
         public VolumeMixer()
         {
@@ -21,7 +23,6 @@ namespace AppVolumeHotkeys
             IMMDeviceEnumerator deviceEnumerator;
             PInvoke.CoCreateInstance<IMMDeviceEnumerator>(typeof(MMDeviceEnumerator).GUID, null, CLSCTX.CLSCTX_ALL, out deviceEnumerator);
 
-            IMMDeviceCollection deviceCollection;
             deviceEnumerator.EnumAudioEndpoints(EDataFlow.eRender, DEVICE_STATE.DEVICE_STATE_ACTIVE, out deviceCollection);
 
             List<string> endpointNames = [];
@@ -45,6 +46,18 @@ namespace AppVolumeHotkeys
             return endpointNames;
         }
 
+        public void SetEndpoint(int index)
+        {
+            IMMDevice device;
+            deviceCollection.Item((uint)index, out device);
+
+            object temp;
+            device.Activate(typeof(IAudioSessionManager2).GUID, CLSCTX.CLSCTX_ALL, null, out temp);
+
+            IAudioSessionManager2 audioSessionManager = (IAudioSessionManager2)temp;
+            audioSessionEnumerator = audioSessionManager.GetSessionEnumerator();
+        }
+
         /* --FIXUP
         public List<string> GetSessionNames()
         {
@@ -60,12 +73,6 @@ namespace AppVolumeHotkeys
             }
 
             return sessionNames;
-        }
-
-        public void SetEndpoint(int index)
-        {
-            IAudioSessionManager2 audioSessionManager = IAudioSessionManager2.FromMMDevice(IMMDeviceEnumerator.EnumerateDevices(DataFlow.Render, DeviceState.Active)[index]);
-            audioSessionEnumerator = audioSessionManager.GetSessionEnumerator();
         }
 
         public int GetApplicationVolume(int index)
