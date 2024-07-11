@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Windows.Win32;
+using Windows.Win32.Foundation;
 
 namespace AppVolumeHotkeys
 {
@@ -16,8 +18,15 @@ namespace AppVolumeHotkeys
         {
             InitializeComponent();
 
+            unsafe { PInvoke.SetWindowTheme(new HWND(listView1.Handle.ToPointer()), "explorer", null); }
+
             VolumeMixer volumeMixer = new VolumeMixer();
-            volumeMixer.GetEndpointNames();
+            foreach (var item in volumeMixer.GetEndpointNames())
+            {
+                Console.WriteLine(item.ToString());
+            }
+            volumeMixer.SetEndpoint(0);
+
         }
     }
 }
