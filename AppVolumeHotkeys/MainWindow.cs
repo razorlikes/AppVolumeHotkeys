@@ -26,6 +26,10 @@ namespace AppVolumeHotkeys
                 Console.WriteLine(item.ToString());
             }
             volumeMixer.SetEndpoint(0);
+            foreach (var item in volumeMixer.GetSessionNames())
+            {
+                Console.WriteLine(item.ToString());
+            }
 
         }
     }

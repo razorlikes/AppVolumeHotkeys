@@ -1,6 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
 using Windows.Win32;
+using Windows.Win32.Foundation;
 using Windows.Win32.Media.Audio;
 using Windows.Win32.System.Com;
 using Windows.Win32.System.Com.StructuredStorage;
@@ -58,23 +63,43 @@ namespace AppVolumeHotkeys
             audioSessionEnumerator = audioSessionManager.GetSessionEnumerator();
         }
 
-        /* --FIXUP
         public List<string> GetSessionNames()
         {
-            List<string> sessionNames = new List<string>();
+            List<string> sessionNames = [];
 
-            foreach (IAudioSessionControl session in audioSessionEnumerator)
+            int sesCount = 0;
+            audioSessionEnumerator.GetCount(out sesCount);
+            for (int i = 0; i < sesCount; i++)
             {
-                IAudioSessionControl2 sessionControl2 = session.QueryInterface<AudioSessionControl2>();
-                if (sessionControl2.DisplayName.ToLower().Contains("audiosrv.dll"))
+                IAudioSessionControl session;
+                audioSessionEnumerator.GetSession(i, out session);
+
+                IntPtr sessionPtr = Marshal.GetIUnknownForObject((object)session);
+
+                IntPtr sessionControl2Ptr;
+                Guid guid = typeof(IAudioSessionControl2).GUID;
+                Marshal.QueryInterface(sessionPtr, ref guid, out sessionControl2Ptr);
+
+                IAudioSessionControl2 sessionControl2 = (IAudioSessionControl2)Marshal.GetObjectForIUnknown(sessionControl2Ptr);
+
+                PWSTR displayNamePWSTR;
+                sessionControl2.GetDisplayName(out displayNamePWSTR);
+                string displayName = displayNamePWSTR.ToString();
+
+                uint processId;
+                sessionControl2.GetProcessId(out processId);
+                Process process = Process.GetProcessById((int)processId);                
+
+                if (displayName.ToLower().Contains("audiosrv.dll"))
                     sessionNames.Add("[System Sounds]");
                 else
-                    sessionNames.Add("[" + sessionControl2.Process.ProcessName + "] " + sessionControl2.Process.MainWindowTitle);
+                    sessionNames.Add("[" + process.ProcessName + "] " + process.MainWindowTitle);
             }
 
             return sessionNames;
         }
 
+        /* --FIXUP
         public int GetApplicationVolume(int index)
         {
             return (int)(audioSessionEnumerator.GetSession(index).QueryInterface<SimpleAudioVolume>().MasterVolume * 100);
