@@ -23,6 +23,15 @@ namespace AppVolumeHotkeys
 
         }
 
+        internal T QueryInterface<T>(object obj)
+        {
+            IntPtr objPtr = Marshal.GetIUnknownForObject(obj);
+            IntPtr interfacePtr;
+            Guid guid = typeof(T).GUID;
+            Marshal.QueryInterface(objPtr, ref guid, out interfacePtr);
+            return (T)Marshal.GetObjectForIUnknown(interfacePtr);
+        }
+
         public List<string> GetEndpointNames()
         {
             IMMDeviceEnumerator deviceEnumerator;
@@ -73,18 +82,15 @@ namespace AppVolumeHotkeys
             {
                 IAudioSessionControl session;
                 audioSessionEnumerator.GetSession(i, out session);
-
-                IntPtr sessionPtr = Marshal.GetIUnknownForObject((object)session);
-
-                IntPtr sessionControl2Ptr;
-                Guid guid = typeof(IAudioSessionControl2).GUID;
-                Marshal.QueryInterface(sessionPtr, ref guid, out sessionControl2Ptr);
-
-                IAudioSessionControl2 sessionControl2 = (IAudioSessionControl2)Marshal.GetObjectForIUnknown(sessionControl2Ptr);
+                IAudioSessionControl2 sessionControl2 = QueryInterface<IAudioSessionControl2>(session);
 
                 PWSTR displayNamePWSTR;
                 sessionControl2.GetDisplayName(out displayNamePWSTR);
                 string displayName = displayNamePWSTR.ToString();
+
+                PWSTR iconPathPWSTR;
+                sessionControl2.GetIconPath(out iconPathPWSTR);
+                string iconPath = iconPathPWSTR.ToString();
 
                 uint processId;
                 sessionControl2.GetProcessId(out processId);
@@ -93,37 +99,63 @@ namespace AppVolumeHotkeys
                 if (displayName.ToLower().Contains("audiosrv.dll"))
                     sessionNames.Add("[System Sounds]");
                 else
-                    sessionNames.Add("[" + process.ProcessName + "] " + process.MainWindowTitle);
+                    sessionNames.Add("[" + process.ProcessName + "] " + process.MainWindowTitle.ToString() + " " + 
+                        iconPath);
             }
 
             return sessionNames;
         }
 
-        /* --FIXUP
         public int GetApplicationVolume(int index)
         {
-            return (int)(audioSessionEnumerator.GetSession(index).QueryInterface<SimpleAudioVolume>().MasterVolume * 100);
+            IAudioSessionControl session;
+            audioSessionEnumerator.GetSession(index, out session);
+            ISimpleAudioVolume audioVolume = QueryInterface<ISimpleAudioVolume>(session);
+
+            float volume;
+            audioVolume.GetMasterVolume(out volume);
+
+            return (int)(volume * 100);
         }
 
         public bool GetApplicationMute(int index)
         {
-            return audioSessionEnumerator.GetSession(index).QueryInterface<SimpleAudioVolume>().IsMuted;
+            IAudioSessionControl session;
+            audioSessionEnumerator.GetSession(index, out session);
+            ISimpleAudioVolume audioVolume = QueryInterface<ISimpleAudioVolume>(session);
+
+            BOOL mute = new BOOL();
+            unsafe
+            {
+                audioVolume.GetMute(&mute);
+                return (bool)mute;
+            }
         }
 
         public void SetApplicationVolume(int index, int volume)
         {
-            if (volume <= 0)
-                audioSessionEnumerator.GetSession(index).QueryInterface<SimpleAudioVolume>().MasterVolume = 0;
-            else if (volume >= 100)
-                audioSessionEnumerator.GetSession(index).QueryInterface<SimpleAudioVolume>().MasterVolume = 1;
-            else
-                audioSessionEnumerator.GetSession(index).QueryInterface<SimpleAudioVolume>().MasterVolume = volume / 100f;
+            IAudioSessionControl session;
+            audioSessionEnumerator.GetSession(index, out session);
+            ISimpleAudioVolume audioVolume = QueryInterface<ISimpleAudioVolume>(session);
+
+            unsafe
+            {
+                if (volume <= 0)
+                    audioVolume.SetMasterVolume(0, null);
+                else if (volume >= 100)
+                    audioVolume.SetMasterVolume(1, null);
+                else
+                    audioVolume.SetMasterVolume(volume / 100f, null);
+            }
         }
 
         public void SetApplicationMute(int index, bool state)
         {
-            audioSessionEnumerator.GetSession(index).QueryInterface<SimpleAudioVolume>().IsMuted = state;
+            IAudioSessionControl session;
+            audioSessionEnumerator.GetSession(index, out session);
+            ISimpleAudioVolume audioVolume = QueryInterface<ISimpleAudioVolume>(session);
+
+            unsafe { audioVolume.SetMute(state, null); }
         }
-        */
     }
 }

@@ -6,7 +6,7 @@ IAudioSessionControl
 IAudioSessionControl2
 IAudioSessionEnumerator
 IAudioSessionManager2
-PKEY_Device_FriendlyName	
+PKEY_Device_FriendlyName
 
 RegisterHotKey
 UnregisterHotKey
