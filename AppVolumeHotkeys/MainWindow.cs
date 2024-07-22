@@ -14,13 +14,23 @@ namespace AppVolumeHotkeys
 {
     public partial class MainWindow : Form
     {
+        private VolumeMixer volumeMixer;
+        private List<AppControl> appControls = new List<AppControl>();
+
         public MainWindow()
         {
             InitializeComponent();
 
-            unsafe { PInvoke.SetWindowTheme(new HWND(listView1.Handle.ToPointer()), "explorer", null); }
+            unsafe 
+            {
+                HWND listHandle = new HWND(lsvApps.Handle.ToPointer());
+                //set to explorer theme
+                PInvoke.SetWindowTheme(listHandle, "explorer", null);
+                //disable focus rect
+                PInvoke.SendMessage(listHandle, PInvoke.WM_CHANGEUISTATE, PInvoke.MAKEWPARAM((ushort)PInvoke.UIS_SET, (ushort)PInvoke.UISF_HIDEFOCUS), 0);
+            }
 
-            VolumeMixer volumeMixer = new VolumeMixer();
+            volumeMixer = new VolumeMixer();
             foreach (var item in volumeMixer.GetEndpointNames())
             {
                 Console.WriteLine(item.ToString());
@@ -30,7 +40,22 @@ namespace AppVolumeHotkeys
             {
                 Console.WriteLine(item.ToString());
             }
+            Console.WriteLine(volumeMixer.GetApplicationVolume(0));
+            Console.WriteLine(volumeMixer.GetApplicationMute(0));
 
+            volumeMixer.SetApplicationVolume(0, 101);
+            volumeMixer.SetApplicationMute(0, false);
+        }
+
+        internal void AddAppControl(AppControl app)
+        {
+            appControls.Add(app);
+            lsvApps.Items.Add(app.listViewItem);
+
+            if (lblNoApps.Visible)
+            {
+                lblNoApps.Visible = false;
+            }
         }
     }
 }

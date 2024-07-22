@@ -28,56 +28,68 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new System.Windows.Forms.ListViewItem.ListViewSubItem[] {
-            new System.Windows.Forms.ListViewItem.ListViewSubItem(null, "TEST1"),
-            new System.Windows.Forms.ListViewItem.ListViewSubItem(null, "TestSub1"),
-            new System.Windows.Forms.ListViewItem.ListViewSubItem(null, "TestSub2"),
-            new System.Windows.Forms.ListViewItem.ListViewSubItem(null, "TestSub3", System.Drawing.SystemColors.WindowText, System.Drawing.SystemColors.Window, new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))))}, -1);
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
+            "TEST1",
+            "TestSub1",
+            "TestSub2"}, -1);
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("TEST2");
+            this.lsvApps = new System.Windows.Forms.ListView();
             this.colTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colVolume = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colMute = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colTest = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.button1 = new System.Windows.Forms.Button();
+            this.imgIcons = new System.Windows.Forms.ImageList(this.components);
+            this.btnAdd = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.lblNoApps = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // listView1
+            // lsvApps
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lsvApps.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colTitle,
             this.colVolume,
             this.colMute,
             this.colTest});
-            this.listView1.FullRowSelect = true;
-            this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listView1.HideSelection = false;
-            this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1});
-            this.listView1.Location = new System.Drawing.Point(61, 85);
-            this.listView1.MultiSelect = false;
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(398, 340);
-            this.listView1.TabIndex = 3;
-            this.listView1.TileSize = new System.Drawing.Size(168, 80);
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Tile;
+            this.lsvApps.FullRowSelect = true;
+            this.lsvApps.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.lsvApps.HideSelection = false;
+            this.lsvApps.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem1,
+            listViewItem2});
+            this.lsvApps.LargeImageList = this.imgIcons;
+            this.lsvApps.Location = new System.Drawing.Point(37, 61);
+            this.lsvApps.MultiSelect = false;
+            this.lsvApps.Name = "lsvApps";
+            this.lsvApps.Size = new System.Drawing.Size(250, 340);
+            this.lsvApps.TabIndex = 3;
+            this.lsvApps.TileSize = new System.Drawing.Size(246, 52);
+            this.lsvApps.UseCompatibleStateImageBehavior = false;
+            this.lsvApps.View = System.Windows.Forms.View.Tile;
             // 
-            // button1
+            // imgIcons
             // 
-            this.button1.Location = new System.Drawing.Point(99, 461);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(91, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Add Hotkeys";
-            this.button1.UseVisualStyleBackColor = true;
+            this.imgIcons.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imgIcons.ImageSize = new System.Drawing.Size(48, 48);
+            this.imgIcons.TransparentColor = System.Drawing.Color.Transparent;
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Location = new System.Drawing.Point(37, 407);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(91, 23);
+            this.btnAdd.TabIndex = 1;
+            this.btnAdd.Text = "Add Hotkeys";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(274, 461);
+            this.button2.Location = new System.Drawing.Point(200, 407);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(87, 23);
             this.button2.TabIndex = 2;
             this.button2.Text = "button2";
             this.button2.UseVisualStyleBackColor = true;
@@ -91,15 +103,26 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "label1";
             // 
+            // lblNoApps
+            // 
+            this.lblNoApps.BackColor = System.Drawing.SystemColors.Window;
+            this.lblNoApps.Location = new System.Drawing.Point(51, 212);
+            this.lblNoApps.Name = "lblNoApps";
+            this.lblNoApps.Size = new System.Drawing.Size(220, 52);
+            this.lblNoApps.TabIndex = 4;
+            this.lblNoApps.Text = "No application hotkeys set up.\r\nUse the \"Add Hotkeys\" button below.";
+            this.lblNoApps.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(637, 518);
+            this.Controls.Add(this.lblNoApps);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.btnAdd);
+            this.Controls.Add(this.lsvApps);
             this.Name = "MainWindow";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -109,14 +132,16 @@
 
         #endregion
 
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView lsvApps;
         private System.Windows.Forms.ColumnHeader colTitle;
         private System.Windows.Forms.ColumnHeader colVolume;
         private System.Windows.Forms.ColumnHeader colMute;
         private System.Windows.Forms.ColumnHeader colTest;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ImageList imgIcons;
+        private System.Windows.Forms.Label lblNoApps;
     }
 }
 
