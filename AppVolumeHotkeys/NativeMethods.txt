@@ -11,4 +11,11 @@ PKEY_Device_FriendlyName
 RegisterHotKey
 UnregisterHotKey
 GetAsyncKeyState
+
 SetWindowTheme
+SendMessage
+
+WM_CHANGEUISTATE
+UIS_SET
+UISF_HIDEFOCUS
+MAKEWPARAM
