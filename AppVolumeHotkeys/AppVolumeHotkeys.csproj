@@ -74,6 +74,7 @@
     <Compile Include="AddingForm.Designer.cs">
       <DependentUpon>AddingForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AppControl.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
