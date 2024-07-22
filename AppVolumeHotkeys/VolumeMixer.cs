@@ -13,7 +13,7 @@ using Windows.Win32.UI.Shell.PropertiesSystem;
 
 namespace AppVolumeHotkeys
 {
-    class VolumeMixer
+    public class VolumeMixer
     {
         IAudioSessionEnumerator audioSessionEnumerator;
         IMMDeviceCollection deviceCollection;
@@ -88,10 +88,6 @@ namespace AppVolumeHotkeys
                 sessionControl2.GetDisplayName(out displayNamePWSTR);
                 string displayName = displayNamePWSTR.ToString();
 
-                PWSTR iconPathPWSTR;
-                sessionControl2.GetIconPath(out iconPathPWSTR);
-                string iconPath = iconPathPWSTR.ToString();
-
                 uint processId;
                 sessionControl2.GetProcessId(out processId);
                 Process process = Process.GetProcessById((int)processId);                
@@ -99,8 +95,7 @@ namespace AppVolumeHotkeys
                 if (displayName.ToLower().Contains("audiosrv.dll"))
                     sessionNames.Add("[System Sounds]");
                 else
-                    sessionNames.Add("[" + process.ProcessName + "] " + process.MainWindowTitle.ToString() + " " + 
-                        iconPath);
+                    sessionNames.Add("[" + process.ProcessName + "] " + process.MainWindowTitle);
             }
 
             return sessionNames;
@@ -156,6 +151,20 @@ namespace AppVolumeHotkeys
             ISimpleAudioVolume audioVolume = QueryInterface<ISimpleAudioVolume>(session);
 
             unsafe { audioVolume.SetMute(state, null); }
+        }
+
+        internal IAudioSessionControl GetSessionInterface(int index)
+        {
+            IAudioSessionControl session;
+            audioSessionEnumerator.GetSession(index, out session);
+            return session;
+        }
+
+        internal ISimpleAudioVolume GetVolumeInterface(int index)
+        {
+            IAudioSessionControl session;
+            audioSessionEnumerator.GetSession(index, out session);
+            return QueryInterface<ISimpleAudioVolume>(session);
         }
     }
 }
