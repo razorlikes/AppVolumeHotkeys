@@ -47,6 +47,13 @@ namespace AppVolumeHotkeys
             volumeMixer.SetApplicationMute(0, false);
         }
 
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            AddingForm addingForm = new AddingForm(volumeMixer);
+            addingForm.Owner = this;
+            addingForm.Show();
+        }
+
         internal void AddAppControl(AppControl app)
         {
             appControls.Add(app);
