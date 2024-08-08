@@ -40,11 +40,11 @@ namespace AppVolumeHotkeys
             {
                 Console.WriteLine(item.ToString());
             }
-            Console.WriteLine(volumeMixer.GetApplicationVolume(0));
-            Console.WriteLine(volumeMixer.GetApplicationMute(0));
+            Console.WriteLine(volumeMixer.GetApplicationVolume(volumeMixer.GetVolumeInterface(0)));
+            Console.WriteLine(volumeMixer.GetApplicationMute(volumeMixer.GetVolumeInterface(0)));
 
-            volumeMixer.SetApplicationVolume(0, 101);
-            volumeMixer.SetApplicationMute(0, false);
+            volumeMixer.SetApplicationVolume(volumeMixer.GetVolumeInterface(0), 101);
+            volumeMixer.SetApplicationMute(volumeMixer.GetVolumeInterface(0), false);
         }
 
         private void btnAdd_Click(object sender, EventArgs e)

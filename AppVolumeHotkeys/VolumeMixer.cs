@@ -101,24 +101,16 @@ namespace AppVolumeHotkeys
             return sessionNames;
         }
 
-        public int GetApplicationVolume(int index)
+        internal int GetApplicationVolume(ISimpleAudioVolume audioVolume)
         {
-            IAudioSessionControl session;
-            audioSessionEnumerator.GetSession(index, out session);
-            ISimpleAudioVolume audioVolume = QueryInterface<ISimpleAudioVolume>(session);
-
             float volume;
             audioVolume.GetMasterVolume(out volume);
 
             return (int)(volume * 100);
         }
 
-        public bool GetApplicationMute(int index)
+        internal bool GetApplicationMute(ISimpleAudioVolume audioVolume)
         {
-            IAudioSessionControl session;
-            audioSessionEnumerator.GetSession(index, out session);
-            ISimpleAudioVolume audioVolume = QueryInterface<ISimpleAudioVolume>(session);
-
             BOOL mute = new BOOL();
             unsafe
             {
@@ -127,12 +119,8 @@ namespace AppVolumeHotkeys
             }
         }
 
-        public void SetApplicationVolume(int index, int volume)
+        internal void SetApplicationVolume(ISimpleAudioVolume audioVolume, int volume)
         {
-            IAudioSessionControl session;
-            audioSessionEnumerator.GetSession(index, out session);
-            ISimpleAudioVolume audioVolume = QueryInterface<ISimpleAudioVolume>(session);
-
             unsafe
             {
                 if (volume <= 0)
@@ -144,12 +132,8 @@ namespace AppVolumeHotkeys
             }
         }
 
-        public void SetApplicationMute(int index, bool state)
+        internal void SetApplicationMute(ISimpleAudioVolume audioVolume, bool state)
         {
-            IAudioSessionControl session;
-            audioSessionEnumerator.GetSession(index, out session);
-            ISimpleAudioVolume audioVolume = QueryInterface<ISimpleAudioVolume>(session);
-
             unsafe { audioVolume.SetMute(state, null); }
         }
 
